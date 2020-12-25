@@ -1,13 +1,14 @@
 ## Machine Learning
 
-### Linear Regression
+## Linear Regression
 #### Basic Concepts 
-![Image](https://github.com/hedygithub/MachineLearning/blob/gh-pages/images/def_simple_linear_model.png)
-![Image](https://github.com/hedygithub/MachineLearning/blob/gh-pages/images/def_general_linear_model.png)
+![Image](https://github.com/hedygithub/MachineLearning/blob/gh-pages/images/def_simple_linear_model.jpg)
+![Image](https://github.com/hedygithub/MachineLearning/blob/gh-pages/images/def_general_linear_model.jpg)
 - Xs are the covariates (or features, or inputs, or independent variables) 
 - Y is the response (or outcomes, or outputs, or dependent variable.
 - Errors (or noise term): i.i.d. normal distributed 
 - Residuals: The errors in our predictions
+
 #### Assumptions
 1. Linearity: 
     - There is a linear relationship between the covariates and the response. 
@@ -21,7 +22,7 @@
     - Can be relaxed 
 4. Homoscedasticity
     - The error term has onstant variance σ2 at every value of X. Why?
-      ![Image](https://github.com/hedygithub/MachineLearning/blob/gh-pages/images/why_linear_model_homoscedastic.png)
+      ![Image](https://github.com/hedygithub/MachineLearning/blob/gh-pages/images/why_linear_model_homoscedastic.jpg)
     - There are tests and plots to determine homescedasticity. Residual plots, Levene's test, Barlett's test, and Goldfeld-Quandt Test.
     - In the heteroscedastic, we can use Weighted Least Squares (WLS) to transform the problem into the homoscedastic case.
  5. **Residuals Why? **
