@@ -20,21 +20,40 @@
 3. The Noise Term
     - The error term is assumed to be a random variable that has a mean of 0 and normally distributed (i.i.d. Gaussian random variables)
     - **Why** ?
-    ![](https://github.com/hedygithub/MachineLearning/blob/gh-pages/images/why_linear_model_error_term_normal_distributed.png.png)
+    ![](https://github.com/hedygithub/MachineLearning/blob/gh-pages/images/why_linear_model_error_term_normal_distributed.png)
     - When the errors are not normally distributed, it is OK if we have enough data.
 4. Homoscedasticity
     - The error term has onstant variance σ2 at every value of X. 
     - **Why**?
-      ![Image](https://github.com/hedygithub/MachineLearning/blob/gh-pages/images/why_linear_model_homoscedastic.png)
+    ![](https://github.com/hedygithub/MachineLearning/blob/gh-pages/images/why_linear_model_homoscedastic.png)
     - There are tests and plots to determine homescedasticity. Residual plots, Levene's test, Barlett's test, and Goldfeld-Quandt Test.
     - In the heteroscedastic, we can use Weighted Least Squares (WLS) to transform the problem into the homoscedastic case.
  5. **Residuals Why**
     - Residuals are statistically independent, have uniform variance, are normally distributed
  6. Non-Collinearity (Xs is full column rank in Linear Algerba): 
     - Multicolinearity occurs when the independent variables are correlated with each other.
+    - **Why** : Multicolinearity means Xs has no full column rank, and by rank-nullity theorem, ker(Xs) has non-zero values, we have no unique soulution.
     - This can be check by heap map of correlation.
  
- #### Q1: Assumptions
+ ### Solutions: Mean Squared Error (MSE)
+ 1. Simple Linear Model:
+ ![](https://github.com/hedygithub/MachineLearning/blob/gh-pages/images/simple_linear_model_solutions.png)
+ 2. General Linear Model:
+ ![](https://github.com/hedygithub/MachineLearning/blob/gh-pages/images/general_linear_model_solutions.png)
+ 3. Confidence Interval
+ 4. Predicted Interval
+ 
+ ### Useful Points of Linear Model
+ 1. In simple linear model, the fitted line pass through the sample central point.
+ 2. In simple linear model, if X and Y are standardized, correlation is equal to slope. 
+ 3. Centerated Resduals. In linear model, sum of residual equal to zero.
+ 4. Reduced Variance: 
+    - R-squared: proportion of variance explained by the ﬁt
+ 5. Leverage: Slope has the highest sensitivity to points furthest from the mean 
+  
+ ### Question 1: More feature, less features?
+ ### Question 2: What if you duplicate all the data and do regression on the new data set?
+ ### Question 3: What are the Advantages/Disadvantages of Linear regression?
     
 
 
