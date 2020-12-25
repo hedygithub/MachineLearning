@@ -52,8 +52,9 @@
  3. Centerated Resduals. In linear model, sum of residual equal to zero.
  4. Reduced Variance: 
     - R-squared: proportion of variance explained by the ﬁt
+    - Adjusted R-squared: compared with R-squared, it isn’t guaranteed to grow as we add features (due to the n−k denominator that penalizes larger models), and thus can be more useful. Other methods for weighing goodness-of-ﬁt against model complexity include the AIC, BIC, and Mallows’s Cp.
  5. Leverage: Slope has the highest sensitivity to points furthest from the mean 
-  
+ 
  ### Question 1.1: Missing feature
  If you ﬁt a linear model that has some features missing, will your least squares estimates of the reduced model be biased? 
  - It will be Biased, unless the omitted features are uncorrelated with the included features. 
@@ -62,8 +63,8 @@
  - It will be Unbiased. Even though adding features does not introduce bias (and can decrease it), it can increase the variance of our estimates and produce larger conﬁdence intervals and prediction intervals. 
  
  ### Question 2: What if you duplicate all the data and do regression on the new data set?
- 
- ### Question 3: What are the Advantages/Disadvantages of Linear regression?
+ The mean and variance of the sample would not change therefore the beta estimation would be the same. The standard error will go down. However, since the sample size is doubled this will result in the lower p-value for the beta. This tells us that by simply doubling/duplicating the data, we could trick the regression model to have smaller confidence interval.
+ ### Advantages/Disadvantages of Linear regression?
  **Pros**:
  - Simplicity and interpretability: linear regression is an extremely simple method. It is very easy to use, understand, and explain.
  - The best fit line is the line with minimum error from all the points, it has high efficiency
