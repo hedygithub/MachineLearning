@@ -1,7 +1,7 @@
 ## Machine Learning
 
 ## Linear Regression
-#### Basic Concepts 
+### Basic Concepts 
 ![Image](https://github.com/hedygithub/MachineLearning/blob/gh-pages/images/def_simple_linear_model.jpg)
 ![Image](https://github.com/hedygithub/MachineLearning/blob/gh-pages/images/def_general_linear_model.jpg)
 - Xs are the covariates (or features, or inputs, or independent variables) 
@@ -9,11 +9,11 @@
 - Errors (or noise term): i.i.d. normal distributed 
 - Residuals: The errors in our predictions
 
-#### Assumptions
+### Assumptions
 1. Linearity: 
     - There is a linear relationship between the covariates and the response. 
     - Linear relationship can be assessed with scatter plots.
-2. **Normality Why? **: 
+2. **Normality Why**: 
     - Variables follow a Gaussian Distribution.
     - Normality can be assessed with histograms. Normality can also be statistically tested, for example with the Kolmogorov-Smirnov test.
     - When the variable is not normally distributed a non-linear transformation like Log-transformation may fix this issue.
@@ -25,7 +25,7 @@
       ![Image](https://github.com/hedygithub/MachineLearning/blob/gh-pages/images/why_linear_model_homoscedastic.jpg)
     - There are tests and plots to determine homescedasticity. Residual plots, Levene's test, Barlett's test, and Goldfeld-Quandt Test.
     - In the heteroscedastic, we can use Weighted Least Squares (WLS) to transform the problem into the homoscedastic case.
- 5. **Residuals Why? **
+ 5. **Residuals Why**
     - are statistically independent, have uniform variance, are normally distributed
 
 
