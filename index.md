@@ -13,7 +13,7 @@
 1. Linearity: 
     - There is a linear relationship between the covariates and the response. 
     - Linear relationship can be assessed with scatter plots.
-2. **Normality Why**?: 
+2. (Normality): 
     - Variables follow a Gaussian Distribution.
     - Normality can be assessed with histograms. Normality can also be statistically tested, for example with the Kolmogorov-Smirnov test.
     - When the variable is not normally distributed a non-linear transformation like Log-transformation may fix this issue.
@@ -33,7 +33,7 @@
  6. Non-Collinearity (Xs is full column rank in Linear Algerba): 
     - Multicolinearity occurs when the independent variables are correlated with each other.
     - **Why** : Multicolinearity means Xs has no full column rank, and by rank-nullity theorem, ker(Xs) has non-zero values, we have no unique soulution.
-    - This can be check by heap map of correlation.
+    - This can be check by heat map of correlation.
  
  ### Solutions: Mean Squared Error (MSE)
  1. Simple Linear Model:
@@ -72,9 +72,9 @@
 
  **Cons**:
  - Linear regression only models relationships between dependent and independent variables that are linear. It assumes there is a straight-line relationship between them which is incorrect sometimes.
- - Linear regression is very sensitive to the anomalies/outliers in the data (See Leverage). 
- - Linear regression is very sensitive to missing data. (Why?)
- - Linear regression needs feature scaling. (Why?)
+ - Linear regression is very sensitive to the outliers in the data (See Leverage). 
+ - Linear regression is very sensitive to missing data. (biased parameter)
+ - Linear regression needs feature scaling. (for gradient descent)
  - If the number of the parameters are greater than the samples, then the model starts to model noise rather than relationship
  - Correlated features may affect performance.
  - Extensive feature engineering required.
