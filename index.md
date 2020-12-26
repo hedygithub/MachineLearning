@@ -13,18 +13,18 @@
 1. Linearity: 
     - There is a linear relationship between the covariates and the response. 
     - Linear relationship can be assessed with scatter plots.
-2. **Normality Why**?: 
+2. (Normality): 
     - Variables follow a Gaussian Distribution.
     - Normality can be assessed with histograms. Normality can also be statistically tested, for example with the Kolmogorov-Smirnov test.
     - When the variable is not normally distributed a non-linear transformation like Log-transformation may fix this issue.
 3. The Noise Term
     - The error term is assumed to be a random variable that has a mean of 0 and normally distributed (i.i.d. Gaussian random variables)
-    - **Why** ?
+    - **Why** 
     ![](https://github.com/hedygithub/MachineLearning/blob/gh-pages/images/why_linear_model_error_term_normal_distributed.png)
     - When the errors are not normally distributed, it is OK if we have enough data.
 4. Homoscedasticity
     - The error term has onstant variance σ2 at every value of X. 
-    - **Why**?
+    - **Why**
     ![](https://github.com/hedygithub/MachineLearning/blob/gh-pages/images/why_linear_model_homoscedastic.png)
     - There are tests and plots to determine homescedasticity. Residual plots, Levene's test, Barlett's test, and Goldfeld-Quandt Test.
     - In the heteroscedastic, we can use Weighted Least Squares (WLS) to transform the problem into the homoscedastic case.
@@ -33,15 +33,18 @@
  6. Non-Collinearity (Xs is full column rank in Linear Algerba): 
     - Multicolinearity occurs when the independent variables are correlated with each other.
     - **Why** : Multicolinearity means Xs has no full column rank, and by rank-nullity theorem, ker(Xs) has non-zero values, we have no unique soulution.
-    - This can be check by heap map of correlation.
+    - This can be check by heat map of correlation.
  
  ### Solutions: Mean Squared Error (MSE)
  1. Simple Linear Model:
  ![](https://github.com/hedygithub/MachineLearning/blob/gh-pages/images/simple_linear_model_solutions.png)
  2. General Linear Model:
  ![](https://github.com/hedygithub/MachineLearning/blob/gh-pages/images/general_linear_model_solutions.png)
- 3. Confidence Interval
- 4. Predicted Interval
+ 3. Unbiased Estimation (MSE): 
+ ![](https://github.com/hedygithub/MachineLearning/blob/gh-pages/images/why_linear_model_unbiased.png)
+ 4. Confidence Interval: for β0, β1, for β0 + β1x (fitted Y)
+ 5. Predicted Interval: Note that prediction intervals are slightly diﬀerent from conﬁdence intervals, since Y is random (along with the endpoints of the interval). Our prediction interval for Y will incorporate our uncertainty in estimating β0 + β1x, and the noise Z present in Y.
+
  
  ### Useful Points of Linear Model
  1. In simple linear model, the fitted line pass through the sample central point.
@@ -49,13 +52,32 @@
  3. Centerated Resduals. In linear model, sum of residual equal to zero.
  4. Reduced Variance: 
     - R-squared: proportion of variance explained by the ﬁt
+    - Adjusted R-squared: compared with R-squared, it isn’t guaranteed to grow as we add features (due to the n−k denominator that penalizes larger models), and thus can be more useful. Other methods for weighing goodness-of-ﬁt against model complexity include the AIC, BIC, and Mallows’s Cp.
  5. Leverage: Slope has the highest sensitivity to points furthest from the mean 
-  
- ### Question 1: More feature, less features?
+ 
+ ### Question 1.1: Missing feature
+ If you ﬁt a linear model that has some features missing, will your least squares estimates of the reduced model be biased? 
+ - It will be Biased, unless the omitted features are uncorrelated with the included features. 
+ ### Question 1.2: Extra feature
+ If you ﬁt a linear model that has some extra features, will your least squares estimates of the enlarged model be biased?
+ - It will be Unbiased. Even though adding features does not introduce bias (and can decrease it), it can increase the variance of our estimates and produce larger conﬁdence intervals and prediction intervals. 
+ 
  ### Question 2: What if you duplicate all the data and do regression on the new data set?
- ### Question 3: What are the Advantages/Disadvantages of Linear regression?
-    
+ The mean and variance of the sample would not change therefore the beta estimation would be the same. The standard error will go down. However, since the sample size is doubled this will result in the lower p-value for the beta. This tells us that by simply doubling/duplicating the data, we could trick the regression model to have smaller confidence interval.
+ ### Advantages/Disadvantages of Linear regression?
+ **Pros**:
+ - Simplicity and interpretability: linear regression is an extremely simple method. It is very easy to use, understand, and explain.
+ - The best fit line is the line with minimum error from all the points, it has high efficiency
+ - It needs little tuning
 
+ **Cons**:
+ - Linear regression only models relationships between dependent and independent variables that are linear. It assumes there is a straight-line relationship between them which is incorrect sometimes.
+ - Linear regression is very sensitive to the outliers in the data (See Leverage). 
+ - Linear regression is very sensitive to missing data. (biased parameter)
+ - Linear regression needs feature scaling. (for gradient descent)
+ - If the number of the parameters are greater than the samples, then the model starts to model noise rather than relationship
+ - Correlated features may affect performance.
+ - Extensive feature engineering required.
 
 ## Welcome to GitHub Pages
 
