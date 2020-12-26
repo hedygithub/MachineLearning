@@ -18,31 +18,30 @@
     - Normality can be assessed with histograms. Normality can also be statistically tested, for example with the Kolmogorov-Smirnov test.
     - When the variable is not normally distributed a non-linear transformation like Log-transformation may fix this issue.
 3. The Noise Term
-    - The error term is assumed to be a random variable that has a mean of 0 and normally distributed (i.i.d. Gaussian random variables)
-    - **Why** 
+    - The error term is assumed to be a random variable that has a mean of 0 and normally distributed (i.i.d. Gaussian random variables).
+    - (Residuals are statistically independent, have uniform variance, are normally distributed)
+    - Why
     ![](https://github.com/hedygithub/MachineLearning/blob/gh-pages/images/why_linear_model_error_term_normal_distributed.png)
     - When the errors are not normally distributed, it is OK if we have enough data.
 4. Homoscedasticity
     - The error term has onstant variance σ2 at every value of X. 
-    - **Why**
+    - Why
     ![](https://github.com/hedygithub/MachineLearning/blob/gh-pages/images/why_linear_model_homoscedastic.png)
     - There are tests and plots to determine homescedasticity. Residual plots, Levene's test, Barlett's test, and Goldfeld-Quandt Test.
     - In the heteroscedastic, we can use Weighted Least Squares (WLS) to transform the problem into the homoscedastic case.
- 5. **Residuals Why**
-    - Residuals are statistically independent, have uniform variance, are normally distributed
- 6. Non-Collinearity (Xs is full column rank in Linear Algerba): 
+ 5. Non-Collinearity (Xs is full column rank in Linear Algerba): 
     - Multicolinearity occurs when the independent variables are correlated with each other.
-    - **Why** : Multicolinearity means Xs has no full column rank, and by rank-nullity theorem, ker(Xs) has non-zero values, we have no unique soulution.
+    - Why : Multicolinearity means Xs has no full column rank, and by rank-nullity theorem, dimension of ker(Xs) bigger than 0. Hence, it will have more than one soulution.
     - This can be check by heat map of correlation.
  
  ### Solutions: Mean Squared Error (MSE)
  1. Simple Linear Model:
  ![](https://github.com/hedygithub/MachineLearning/blob/gh-pages/images/simple_linear_model_solutions.png)
- 2. General Linear Model:
+ 2. General Linear Model (Squared Error is a Convex Funcion):
  ![](https://github.com/hedygithub/MachineLearning/blob/gh-pages/images/general_linear_model_solutions.png)
  3. Unbiased Estimation (MSE): 
  ![](https://github.com/hedygithub/MachineLearning/blob/gh-pages/images/why_linear_model_unbiased.png)
- 4. Confidence Interval: for β0, β1, for β0 + β1x (fitted Y)
+ 4. Hypothesis Tesing & Confidence Interval: for β0, β1, for β0 + β1x (fitted Y)
  5. Predicted Interval: Note that prediction intervals are slightly diﬀerent from conﬁdence intervals, since Y is random (along with the endpoints of the interval). Our prediction interval for Y will incorporate our uncertainty in estimating β0 + β1x, and the noise Z present in Y.
 
  
@@ -64,7 +63,7 @@
  
  ### Question 2: What if you duplicate all the data and do regression on the new data set?
  The mean and variance of the sample would not change therefore the beta estimation would be the same. The standard error will go down. However, since the sample size is doubled this will result in the lower p-value for the beta. This tells us that by simply doubling/duplicating the data, we could trick the regression model to have smaller confidence interval.
- ### Advantages/Disadvantages of Linear regression?
+ ### Advantages/Disadvantages of Linear regression
  **Pros**:
  - Simplicity and interpretability: linear regression is an extremely simple method. It is very easy to use, understand, and explain.
  - The best fit line is the line with minimum error from all the points, it has high efficiency
@@ -78,6 +77,47 @@
  - If the number of the parameters are greater than the samples, then the model starts to model noise rather than relationship
  - Correlated features may affect performance.
  - Extensive feature engineering required.
+
+
+## LASSO and Ridge
+### Basic Concepts
+![](https://github.com/hedygithub/MachineLearning/blob/gh-pages/images/lasso_rigde.png)
+#### Question 1: Why LASSO has the property of _feature selection_ but Ridge does not?
+ - By Intuition:
+ ![](https://github.com/hedygithub/MachineLearning/blob/gh-pages/images/lasso_select_feature_1_1.png)
+ ![](https://github.com/hedygithub/MachineLearning/blob/gh-pages/images/lasso_select_feature_1_2.png)
+
+ - By Lasso Solution: (Note there is not closed form formula for Lasso, unless A has orthnormal matrix)
+ ![](https://github.com/hedygithub/MachineLearning/blob/gh-pages/images/lasso_select_feature_2.png)
+ #### Question 2: What is regularization?
+ - What: Regularization is used to prevent overfitting. It significantly reduces the variance of the model, without substantial increase in its bias. It will improve the generalization of a model and decrease the complexity of a model.
+ - How: It adds a penalty on the loss function to reduce the freedom of the model. Hence the model will be less likely to fit the noise of the training data. 
+ #### Question 3: How to choose Lambda?
+ Lambda is the tuning parameter that decides how much we want to penalize the flexibility of our model. As lambda increases, the impact of the shrinkage penalty grows, and the ridge regression coefficient estimates will approach zero. Selecting a good value of lambda is critical, we can use cross validation to choose good lambda.
+ 
+ 
+ 
+ ### Advantages/Disadvantages of LASSO
+ **Pros**:
+ - Useful for feature selection
+ - Much easier to interpret and produces simple models
+ - Lasso to perform better in a setting where a relatively small number of predictors have substantial coefficients, and the remaining predictors have coefficients that are very small or that equal zero
+
+ **Cons**:
+ - LASSO has no closed formula
+ - LASSO needs feature scaling. (for fair regularization to parameters)
+ - For n'<'p case (high dimensional case), LASSO can at most select n features. This has to do with the nature of convex optimization problem LASSO tries to minimize.
+ - For usual case where we have correlated features which is usually the case for real word datasets, LASSO will select only one feature from a group of correlated features. That selection also happens to be arbitrary in nature. Often one might not want this behavior. Like in gene expression the ideal gene selection method is: eliminate the trivial genes and automatically include whole groups into the model once one gene among them is selected (‘grouped selection’). LASSO doesn't help in grouped selection.
+ 
+  ### Advantages/Disadvantages of Ridge
+ **Pros**:
+ - Useful for preventing overfitting. As lambda increases, the shrinkage of the ridge coefficient estimates leads to a substantial reduction in the variance of the predictions, at the expense of a slight increase in bias.
+ - Ridge regression works best in situations where the least squares estimates have high variance. Meaning that a small change in the training data can cause a large change in the least squares coefficient estimates
+ - Ridge regression has unique solution and has substantial computational advantages.
+
+ **Cons**:
+ - Ridge regression is not able to shrink coefficients to exactly zero. As a result, it cannot perform feature selection.
+ - LASSO needs feature scaling. (for fair regularization to parameters)
 
 ## Welcome to GitHub Pages
 
