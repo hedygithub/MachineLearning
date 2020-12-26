@@ -19,12 +19,12 @@
     - When the variable is not normally distributed a non-linear transformation like Log-transformation may fix this issue.
 3. The Noise Term
     - The error term is assumed to be a random variable that has a mean of 0 and normally distributed (i.i.d. Gaussian random variables)
-    - **Why** ?
+    - **Why** 
     ![](https://github.com/hedygithub/MachineLearning/blob/gh-pages/images/why_linear_model_error_term_normal_distributed.png)
     - When the errors are not normally distributed, it is OK if we have enough data.
 4. Homoscedasticity
     - The error term has onstant variance σ2 at every value of X. 
-    - **Why**?
+    - **Why**
     ![](https://github.com/hedygithub/MachineLearning/blob/gh-pages/images/why_linear_model_homoscedastic.png)
     - There are tests and plots to determine homescedasticity. Residual plots, Levene's test, Barlett's test, and Goldfeld-Quandt Test.
     - In the heteroscedastic, we can use Weighted Least Squares (WLS) to transform the problem into the homoscedastic case.
