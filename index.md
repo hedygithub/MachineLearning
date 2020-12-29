@@ -1,6 +1,9 @@
-## Machine Learning
+# Machine Learning
+1. [Linear Regression](#LinearRegression)
+2. [LASSO and Ridge](#LASSOandRidge)
+3. [Logistic Regression](#LogisticRegression)
 
-## Linear Regression
+## Linear Regression <a name="LinearRegression"></a>
 ### Basic Concepts 
 ![](https://github.com/hedygithub/MachineLearning/blob/gh-pages/images/def_simple_linear_model.png)
 ![](https://github.com/hedygithub/MachineLearning/blob/gh-pages/images/def_general_linear_model.png)
@@ -79,7 +82,7 @@
  - Extensive feature engineering required.
 
 
-## LASSO and Ridge
+## LASSO and Ridge <a name="LASSOandRidge"></a>
 ### Basic Concepts
 ![](https://github.com/hedygithub/MachineLearning/blob/gh-pages/images/lasso_rigde.png)
 #### Question 1: Why LASSO has the property of _feature selection_ but Ridge does not?
@@ -118,8 +121,10 @@
  **Cons**:
  - Ridge regression is not able to shrink coefficients to exactly zero. As a result, it cannot perform feature selection.
  - LASSO needs feature scaling. (for fair regularization to parameters)
+ 
+ LogisticRegression
 
-## Welcome to GitHub Pages
+<!-- ## Welcome to GitHub Pages
 
 You can use the [editor on GitHub](https://github.com/hedygithub/DiHe.github.io/edit/gh-pages/index.md) to maintain and preview the content for your website in Markdown files.
 
@@ -156,3 +161,4 @@ Your Pages site will use the layout and styles from the Jekyll theme you have se
 ### Support or Contact
 
 Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+ -->
