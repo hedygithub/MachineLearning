@@ -24,12 +24,12 @@
     - The error term is assumed to be a random variable that has a mean of 0 and normally distributed (i.i.d. Gaussian random variables).
     - (Residuals are statistically independent, have uniform variance, are normally distributed)
     - Why
-    ![](https://github.com/hedygithub/MachineLearning/blob/gh-pages/images/why_linear_model_error_term_normal_distributed.png)
+    ![](images/why_linear_model_error_term_normal_distributed.png)
     - When the errors are not normally distributed, it is OK if we have enough data.
 4. Homoscedasticity
     - The error term has onstant variance σ2 at every value of X. 
     - Why
-    ![](https://github.com/hedygithub/MachineLearning/blob/gh-pages/images/why_linear_model_homoscedastic.png)
+    ![](images/why_linear_model_homoscedastic.png)
     - There are tests and plots to determine homescedasticity. Residual plots, Levene's test, Barlett's test, and Goldfeld-Quandt Test.
     - In the heteroscedastic, we can use Weighted Least Squares (WLS) to transform the problem into the homoscedastic case.
  5. Non-Collinearity (Xs is full column rank in Linear Algerba): 
@@ -39,11 +39,11 @@
  
  ## Solutions: Mean Squared Error (MSE)
  1. Simple Linear Model:
- ![](https://github.com/hedygithub/MachineLearning/blob/gh-pages/images/simple_linear_model_solutions.png)
+ ![](images/simple_linear_model_solutions.png)
  2. General Linear Model (Squared Error is a Convex Funcion):
- ![](https://github.com/hedygithub/MachineLearning/blob/gh-pages/images/general_linear_model_solutions.png)
+ ![](images/general_linear_model_solutions.png)
  3. Unbiased Estimation (MSE): 
- ![](https://github.com/hedygithub/MachineLearning/blob/gh-pages/images/why_linear_model_unbiased.png)
+ ![](images/why_linear_model_unbiased.png)
  4. Hypothesis Tesing & Confidence Interval: for β0, β1, for β0 + β1x (fitted Y)
  5. Predicted Interval: Note that prediction intervals are slightly diﬀerent from conﬁdence intervals, since Y is random (along with the endpoints of the interval). Our prediction interval for Y will incorporate our uncertainty in estimating β0 + β1x, and the noise Z present in Y.
 
@@ -84,14 +84,14 @@
 
 # LASSO and Ridge <a name="LASSOandRidge"></a>
 ## Basic Concepts
-![](https://github.com/hedygithub/MachineLearning/blob/gh-pages/images/lasso_rigde.png)
+![](images/lasso_rigde.png)
 ### Question 1: Why LASSO has the property of _feature selection_ but Ridge does not?
  - By Intuition:
- ![](https://github.com/hedygithub/MachineLearning/blob/gh-pages/images/lasso_select_feature_1_1.png)
- ![](https://github.com/hedygithub/MachineLearning/blob/gh-pages/images/lasso_select_feature_1_2.png)
+ ![](images/lasso_select_feature_1_1.png)
+ ![](images/lasso_select_feature_1_2.png)
 
  - By Lasso Solution: (Note there is not closed form formula for Lasso, unless A has orthnormal matrix)
- ![](https://github.com/hedygithub/MachineLearning/blob/gh-pages/images/lasso_select_feature_2.png)
+ ![](images/lasso_select_feature_2.png)
  ### Question 2: What is regularization?
  - What: Regularization is used to prevent overfitting. It significantly reduces the variance of the model, without substantial increase in its bias. It will improve the generalization of a model and decrease the complexity of a model.
  - How: It adds a penalty on the loss function to reduce the freedom of the model. Hence the model will be less likely to fit the noise of the training data. 
@@ -125,22 +125,22 @@
  # LogisticRegression <a name = "LogisticRegression"></a>
  ## Basic Concept:
  Logistic Regression is a classification method, usually do binary classification 0 or 1. A logistic model is one where the log-odds(logit) of the probability of an event is a linear combination of independent variables.
-  ![](https://github.com/hedygithub/MachineLearning/blob/gh-pages/images/def_logistic_regression_ml.png)
+  ![](images/def_logistic_regression_ml.png)
  ## Assumptions:
  - The outcome is a binary variable like yes vs no, positive vs negative, 1 vs 0.
  - There is a linear relationship between the logit of the target and independent variables.
  - Others similiar to linear regression, such as multi-collinearity.
  ## Cost function of Logistic Regression
-  ![](https://github.com/hedygithub/MachineLearning/blob/gh-pages/images/logistic_regression_logloss.png)
+  ![](images/logistic_regression_logloss.png)
  **MLE**: For large data, the theory of MLEs can be used to show that the parameter estimates are jointly normally distributed, and conﬁdence intervals can be computed. 
  **The difference between the cost function and the loss function**: The loss function computes the error for a single training example; the cost function is the average of the loss function of the entire training set.
  
  ## Extension: Another Perspective to Regularization - Bayesian MAP
-  ![](https://github.com/hedygithub/MachineLearning/blob/gh-pages/images/regularization_MAP.png)
+  ![](images/regularization_MAP.png)
  
  ## Extension: Activation Functions (in Neural Network)
  _Ref._ [7 types neural network activation functions](https://missinglink.ai/guides/neural-network-concepts/7-types-neural-network-activation-functions-right/#commonnonlinear)
-  ![](https://github.com/hedygithub/MachineLearning/blob/gh-pages/images/activation_function.jpg)
+  ![](images/activation_function.jpg)
  ### Sigmoid / Logistic
  - Pros
     - Smooth gradient, preventing “jumps” in output values.
@@ -163,7 +163,7 @@
 - Cons
     - The Dying ReLU problem: when inputs approach zero, or are negative, the gradient of the function becomes zero, the network cannot perform backpropagation and cannot learn.
 ### Softmax
-![](https://github.com/hedygithub/MachineLearning/blob/gh-pages/images/softMax.png)
+![](images/softMax.png)
 - Pros
     - Able to handle multiple classes: only one class in other activation functions—normalizes the outputs for each class between 0 and 1, and divides by their sum, giving the probability of the input value being in a specific class.
     - Useful for output neurons—typically: Softmax is used only for the output layer, for neural networks that need to classify inputs into multiple categories. 
