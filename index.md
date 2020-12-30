@@ -122,7 +122,16 @@
  - Ridge regression is not able to shrink coefficients to exactly zero. As a result, it cannot perform feature selection.
  - LASSO needs feature scaling. (for fair regularization to parameters)
  
- LogisticRegression
+ ## LogisticRegression <a name = "LogisticRegression"></a>
+ ### Basic Concept:
+ Logistic Regression is a classification method, usually do binary classification 0 or 1. A logistic model is one where the log-odds(logit) of the probability of an event is a linear combination of independent variables.
+  ![](https://github.com/hedygithub/MachineLearning/blob/gh-pages/images/def_logistic_regression_ml.png)
+ ### Cost function of Logistic Regression
+  ![](https://github.com/hedygithub/MachineLearning/blob/gh-pages/images/logistic_regression_logloss.png)
+ 
+ ### Another Perspective to Regularization
+ 
+ ### Multi-Class: Softmax and Cross-Entropy
 
 <!-- ## Welcome to GitHub Pages
 
