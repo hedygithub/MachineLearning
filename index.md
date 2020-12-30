@@ -5,7 +5,7 @@
 
 ## Linear Regression <a name="LinearRegression"></a>
 ### Basic Concepts 
-![](https://github.com/hedygithub/MachineLearning/blob/gh-pages/images/def_simple_linear_model.png)
+![](/images/def_simple_linear_model.png)
 ![](https://github.com/hedygithub/MachineLearning/blob/gh-pages/images/def_general_linear_model.png)
 - Xs are the covariates (or features, or inputs, or independent variables) 
 - Y is the response (or outcomes, or outputs, or dependent variable.
