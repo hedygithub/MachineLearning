@@ -126,13 +126,65 @@
  ### Basic Concept:
  Logistic Regression is a classification method, usually do binary classification 0 or 1. A logistic model is one where the log-odds(logit) of the probability of an event is a linear combination of independent variables.
   ![](https://github.com/hedygithub/MachineLearning/blob/gh-pages/images/def_logistic_regression_ml.png)
+ ### Assumptions:
+ - The outcome is a binary variable like yes vs no, positive vs negative, 1 vs 0.
+ - There is a linear relationship between the logit of the target and independent variables.
+ - Others similiar to linear regression, such as multi-collinearity.
  ### Cost function of Logistic Regression
   ![](https://github.com/hedygithub/MachineLearning/blob/gh-pages/images/logistic_regression_logloss.png)
+ **MLE**: For large data, the theory of MLEs can be used to show that the parameter estimates are jointly normally distributed, and conﬁdence intervals can be computed. 
+ **The difference between the cost function and the loss function**: The loss function computes the error for a single training example; the cost function is the average of the loss function of the entire training set.
  
- ### Another Perspective to Regularization
+ ### Extension: Another Perspective to Regularization - Bayesian MAP
+  ![](https://github.com/hedygithub/MachineLearning/blob/gh-pages/images/reglurization_MAP.png)
  
- ### Multi-Class: Softmax and Cross-Entropy
+ ### Extension: Activation Functions (in Neural Network)
+ _Ref._ [7 types neural network activation functions](https://missinglink.ai/guides/neural-network-concepts/7-types-neural-network-activation-functions-right/#commonnonlinear)
+  ![](https://github.com/hedygithub/MachineLearning/blob/gh-pages/images/activation_function.jpg)
+ #### Sigmoid / Logistic
+ - Pros
+    - Smooth gradient, preventing “jumps” in output values.
+    - Output values bound between 0 and 1, normalizing the output of each neuron.
+    - Clear predictions: for X above 2 or below -2, tends to bring the Y value (the prediction) to the edge of the curve, very close to 1 or 0. This enables clear predictions.
+ - Cons
+    - Vanishing gradient: for very high or very low values of X, there is almost no change to the prediction, causing a vanishing gradient problem. This can result in the network refusing to learn further, or being too slow to reach an accurate prediction.
+    - Outputs not zero centered.
+    - Computationally expensive
+#### TanH / Hyperbolic Tangent
+- Pros
+    - Zero centered—making it easier to model inputs that have strongly negative, neutral, and strongly positive values.
+    - Otherwise like the Sigmoid function.
+- Cons
+    - Like the Sigmoid function
+#### ReLU (Rectified Linear Unit)
+- Pros
+    - Computationally efficient—allows the network to converge very quickly
+    - Non-linear: although it looks like a linear function, ReLU has a derivative function and allows for backpropagation
+- Cons
+    - The Dying ReLU problem: when inputs approach zero, or are negative, the gradient of the function becomes zero, the network cannot perform backpropagation and cannot learn.
+#### Softmax
+![](https://github.com/hedygithub/MachineLearning/blob/gh-pages/images/softMax.png)
+- Pros
+    - Able to handle multiple classes: only one class in other activation functions—normalizes the outputs for each class between 0 and 1, and divides by their sum, giving the probability of the input value being in a specific class.
+    - Useful for output neurons—typically: Softmax is used only for the output layer, for neural networks that need to classify inputs into multiple categories. 
+- Usage in torch:
+    - _NLLLoss_: The negative log likelihood loss. It is useful to train a classification problem with C classes. The input given through a forward call is expected to contain log-probabilities of each class. Obtaining log-probabilities in a neural network is easily achieved by adding a _LogSoftmax_ layer in the last layer of your network.
+    - _CrossEntropyLoss_: If you prefer not to add an extra layer (_LogSoftmax_), you may use _CrossEntropyLoss_ instead. _CrossEntropyLoss_ combines nn.LogSoftmax() and nn.NLLLoss() in one single class. 
+    
+### Advantages/Disadvantages of Logistic Regression
+ **Pros**:
+ - Outputs have a nice probabilistic interpretation.
+ - Based on MLE, we can do hypothesis testing on the parameter estimates of the model.
+ - The algorithm can be regularized to avoid overfitting. Multi-collinearity is not really an issue and can be countered with L2 regularization to an extent.
+ - Logistic Regression has been proven over and over to be very robust in small data problems, because it has strong assumption. For example: Learning curve analysis shows that LR performs better than DT in small data scenarios)
+ - Logistic models can be updated easily with new data using stochastic gradient descent.
+ - Linear combination of parameters β and the input vector will be incredibly easy to compute.
+ - Wide spread industry comfort for logistic regression solutions.
 
+ **Cons**:
+ - Logistic regression tends to underperform when there are multiple or non-linear decision boundaries. They are not flexible enough to naturally capture more complex relationships. 
+ - Doesn’t handle large number of categorical features/variables well.
+    
 <!-- ## Welcome to GitHub Pages
 
 You can use the [editor on GitHub](https://github.com/hedygithub/DiHe.github.io/edit/gh-pages/index.md) to maintain and preview the content for your website in Markdown files.
