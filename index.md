@@ -59,29 +59,31 @@
 
 ## Advantages/Disadvantages of Linear regression
 **Pros**:
-    - Simplicity and interpretability: linear regression is an extremely simple method. It is very easy to use, understand, and explain.
-    - The best fit line is the line with minimum error from all the points, it has high efficiency
-    - It needs little tuning
+- Simplicity and interpretability: linear regression is an extremely simple method. It is very easy to use, understand, and explain.
+- The best fit line is the line with minimum error from all the points, it has high efficiency
+- It needs little tuning
 
 **Cons**:
-    - Linear regression only models relationships between dependent and independent variables that are linear. It assumes there is a straight-line relationship between them which is incorrect sometimes.
-    - Linear regression is very sensitive to the outliers in the data (See Leverage). 
-    - Linear regression is very sensitive to missing data. (biased parameter)
-    - Linear regression needs feature scaling. (for gradient descent)
-    - If the number of the parameters are greater than the samples, then the model starts to model noise rather than relationship
-    - Correlated features may affect performance.
-    - Extensive feature engineering required.
+- Linear regression only models relationships between dependent and independent variables that are linear. It assumes there is a straight-line relationship between them which is incorrect sometimes.
+- Linear regression is very sensitive to the outliers in the data (See Leverage). 
+- Linear regression is very sensitive to missing data. (biased parameter)
+- Linear regression needs feature scaling. (for gradient descent)
+- If the number of the parameters are greater than the samples, then the model starts to model noise rather than relationship
+- Correlated features may affect performance.
+- Extensive feature engineering required.
 
 ## Quesion Part
 ### Question 1.1: Missing feature
 If you ﬁt a linear model that has some features missing, will your least squares estimates of the reduced model be biased? 
-    - It will be Biased, unless the omitted features are uncorrelated with the included features. 
+- It will be Biased, unless the omitted features are uncorrelated with the included features. 
+
 ### Question 1.2: Extra feature
 If you ﬁt a linear model that has some extra features, will your least squares estimates of the enlarged model be biased?
-    - It will be Unbiased. Even though adding features does not introduce bias (and can decrease it), it can increase the variance of our estimates and produce larger conﬁdence intervals and prediction intervals. 
+- It will be Unbiased. Even though adding features does not introduce bias (and can decrease it), it can increase the variance of our estimates and produce larger conﬁdence intervals and prediction intervals. 
+
 ### Question 2: More Data
 What if you duplicate all the data and do regression on the new data set?
-    -  The mean and variance of the sample would not change therefore the beta estimation would be the same. The standard error will go down. However, since the sample size is doubled this will result in the lower p-value for the beta. This tells us that by simply doubling/duplicating the data, we could trick the regression model to have smaller confidence interval.
+-  The mean and variance of the sample would not change therefore the beta estimation would be the same. The standard error will go down. However, since the sample size is doubled this will result in the lower p-value for the beta. This tells us that by simply doubling/duplicating the data, we could trick the regression model to have smaller confidence interval.
 
 
 # LASSO and Ridge <a name="LASSOandRidge"></a>
@@ -90,15 +92,15 @@ What if you duplicate all the data and do regression on the new data set?
 
 ## Advantages/Disadvantages of LASSO
 **Pros**:
-    - Useful for feature selection
-    - Much easier to interpret and produces simple models
-    - Lasso to perform better in a setting where a relatively small number of predictors have substantial coefficients, and the remaining predictors have coefficients that are very small or that equal zero
+- Useful for feature selection
+- Much easier to interpret and produces simple models
+- Lasso to perform better in a setting where a relatively small number of predictors have substantial coefficients, and the remaining predictors have coefficients that are very small or that equal zero
 
 **Cons**:
-    - LASSO has no closed formula
-    - LASSO needs feature scaling. (for fair regularization to parameters)
-    - For n'<'p case (high dimensional case), LASSO can at most select n features. This has to do with the nature of convex optimization problem LASSO tries to minimize.
-    - For usual case where we have correlated features which is usually the case for real word datasets, LASSO will select only one feature from a group of correlated features. That selection also happens to be arbitrary in nature. Often one might not want this behavior. Like in gene expression the ideal gene selection method is: eliminate the trivial genes and automatically include whole groups into the model once one gene among them is selected (‘grouped selection’). LASSO doesn't help in grouped selection.
+- LASSO has no closed formula
+- LASSO needs feature scaling. (for fair regularization to parameters)
+- For n'<'p case (high dimensional case), LASSO can at most select n features. This has to do with the nature of convex optimization problem LASSO tries to minimize.
+- For usual case where we have correlated features which is usually the case for real word datasets, LASSO will select only one feature from a group of correlated features. That selection also happens to be arbitrary in nature. Often one might not want this behavior. Like in gene expression the ideal gene selection method is: eliminate the trivial genes and automatically include whole groups into the model once one gene among them is selected (‘grouped selection’). LASSO doesn't help in grouped selection.
 
 ## Advantages/Disadvantages of Ridge
 **Pros**:
@@ -113,18 +115,20 @@ What if you duplicate all the data and do regression on the new data set?
 ## Quesion Part
 ### Question 1: Feature Selection
 Why LASSO has the property of _feature selection_ but Ridge does not?
-    - By Intuition
-    ![](images/lasso_select_feature_1_1.png)
-    ![](images/lasso_select_feature_1_2.png)
-    - By Lasso Solution: (Note there is not closed form formula for Lasso, unless A has orthnormal matrix)
-    ![](images/lasso_select_feature_2.png)
+- By Intuition
+![](images/lasso_select_feature_1_1.png)
+![](images/lasso_select_feature_1_2.png)
+- By Lasso Solution: (Note there is not closed form formula for Lasso, unless A has orthnormal matrix)
+![](images/lasso_select_feature_2.png)
+
 ### Question 2: Regularization
 What is regularization?
-    - What: Regularization is used to prevent overfitting. It significantly reduces the variance of the model, without substantial increase in its bias. It will improve the generalization of a model and decrease the complexity of a model.
-    - How: It adds a penalty on the loss function to reduce the freedom of the model. Hence the model will be less likely to fit the noise of the training data. 
+- What: Regularization is used to prevent overfitting. It significantly reduces the variance of the model, without substantial increase in its bias. It will improve the generalization of a model and decrease the complexity of a model.
+- How: It adds a penalty on the loss function to reduce the freedom of the model. Hence the model will be less likely to fit the noise of the training data. 
+
 ### Question 3: Parameter Tuning
 How to choose Lambda?
-    - Lambda is the tuning parameter that decides how much we want to penalize the flexibility of our model. As lambda increases, the impact of the shrinkage penalty grows, and the ridge regression coefficient estimates will approach zero. Selecting a good value of lambda is critical, we can use cross validation to choose good lambda.
+- Lambda is the tuning parameter that decides how much we want to penalize the flexibility of our model. As lambda increases, the impact of the shrinkage penalty grows, and the ridge regression coefficient estimates will approach zero. Selecting a good value of lambda is critical, we can use cross validation to choose good lambda.
 
 
 # LogisticRegression <a name = "LogisticRegression"></a>
@@ -182,17 +186,17 @@ _Ref._ [7 types neural network activation functions](https://missinglink.ai/guid
 
 ### Advantages/Disadvantages of Logistic Regression
 **Pros**:
-    - Outputs have a nice probabilistic interpretation.
-    - Based on MLE, we can do hypothesis testing on the parameter estimates of the model.
-    - The algorithm can be regularized to avoid overfitting. Multi-collinearity is not really an issue and can be countered with L2 regularization to an extent.
-    - Logistic Regression has been proven over and over to be very robust in small data problems, because it has strong assumption. For example: Learning curve analysis shows that LR performs better than DT in small data scenarios)
-    - Logistic models can be updated easily with new data using stochastic gradient descent.
-    - Linear combination of parameters β and the input vector will be incredibly easy to compute.
-    - Wide spread industry comfort for logistic regression solutions.
+- Outputs have a nice probabilistic interpretation.
+- Based on MLE, we can do hypothesis testing on the parameter estimates of the model.
+- The algorithm can be regularized to avoid overfitting. Multi-collinearity is not really an issue and can be countered with L2 regularization to an extent.
+- Logistic Regression has been proven over and over to be very robust in small data problems, because it has strong assumption. For example: Learning curve analysis shows that LR performs better than DT in small data scenarios)
+- Logistic models can be updated easily with new data using stochastic gradient descent.
+- Linear combination of parameters β and the input vector will be incredibly easy to compute.
+- Wide spread industry comfort for logistic regression solutions.
 
 **Cons**:
-    - Logistic regression tends to underperform when there are multiple or non-linear decision boundaries. They are not flexible enough to naturally capture more complex relationships. 
-    - Doesn’t handle large number of categorical features/variables well.
+- Logistic regression tends to underperform when there are multiple or non-linear decision boundaries. They are not flexible enough to naturally capture more complex relationships. 
+- Doesn’t handle large number of categorical features/variables well.
 
 <!-- ## Welcome to GitHub Pages
 
