@@ -32,136 +32,145 @@
     ![](images/why_linear_model_homoscedastic.png)
     - There are tests and plots to determine homescedasticity. Residual plots, Levene's test, Barlett's test, and Goldfeld-Quandt Test.
     - In the heteroscedastic, we can use Weighted Least Squares (WLS) to transform the problem into the homoscedastic case.
- 5. Non-Collinearity (Xs is full column rank in Linear Algerba): 
+5. Non-Collinearity (Xs is full column rank in Linear Algerba): 
     - Multicolinearity occurs when the independent variables are correlated with each other.
     - Why : Multicolinearity means Xs has no full column rank, and by rank-nullity theorem, dimension of ker(Xs) bigger than 0. Hence, it will have more than one soulution.
     - This can be check by heat map of correlation.
  
- ## Solutions: Mean Squared Error (MSE)
- 1. Simple Linear Model:
- ![](images/simple_linear_model_solutions.png)
- 2. General Linear Model (Squared Error is a Convex Funcion):
- ![](images/general_linear_model_solutions.png)
- 3. Unbiased Estimation (MSE): 
- ![](images/why_linear_model_unbiased.png)
- 4. Hypothesis Tesing & Confidence Interval: for β0, β1, for β0 + β1x (fitted Y)
- 5. Predicted Interval: Note that prediction intervals are slightly diﬀerent from conﬁdence intervals, since Y is random (along with the endpoints of the interval). Our prediction interval for Y will incorporate our uncertainty in estimating β0 + β1x, and the noise Z present in Y.
+## Solutions: Mean Squared Error (MSE)
+1. Simple Linear Model:
+![](images/simple_linear_model_solutions.png)
+2. General Linear Model (Squared Error is a Convex Funcion):
+![](images/general_linear_model_solutions.png)
+3. Unbiased Estimation (MSE): 
+![](images/why_linear_model_unbiased.png)
+4. Hypothesis Tesing & Confidence Interval: for β0, β1, for β0 + β1x (fitted Y)
+5. Predicted Interval: Note that prediction intervals are slightly diﬀerent from conﬁdence intervals, since Y is random (along with the endpoints of the interval). Our prediction interval for Y will incorporate our uncertainty in estimating β0 + β1x, and the noise Z present in Y.
 
- 
- ## Useful Points of Linear Model
- 1. In simple linear model, the fitted line pass through the sample central point.
- 2. In simple linear model, if X and Y are standardized, correlation is equal to slope. 
- 3. Centerated Resduals. In linear model, sum of residual equal to zero.
- 4. Reduced Variance: 
+
+## Useful Points of Linear Model
+1. In simple linear model, the fitted line pass through the sample central point.
+2. In simple linear model, if X and Y are standardized, correlation is equal to slope. 
+3. Centerated Resduals. In linear model, sum of residual equal to zero.
+4. Reduced Variance: 
     - R-squared: proportion of variance explained by the ﬁt
     - Adjusted R-squared: compared with R-squared, it isn’t guaranteed to grow as we add features (due to the n−k denominator that penalizes larger models), and thus can be more useful. Other methods for weighing goodness-of-ﬁt against model complexity include the AIC, BIC, and Mallows’s Cp.
- 5. Leverage: Slope has the highest sensitivity to points furthest from the mean 
- 
- ## Question 1.1: Missing feature
- If you ﬁt a linear model that has some features missing, will your least squares estimates of the reduced model be biased? 
- - It will be Biased, unless the omitted features are uncorrelated with the included features. 
- ## Question 1.2: Extra feature
- If you ﬁt a linear model that has some extra features, will your least squares estimates of the enlarged model be biased?
- - It will be Unbiased. Even though adding features does not introduce bias (and can decrease it), it can increase the variance of our estimates and produce larger conﬁdence intervals and prediction intervals. 
- 
- ## Question 2: What if you duplicate all the data and do regression on the new data set?
- The mean and variance of the sample would not change therefore the beta estimation would be the same. The standard error will go down. However, since the sample size is doubled this will result in the lower p-value for the beta. This tells us that by simply doubling/duplicating the data, we could trick the regression model to have smaller confidence interval.
- ## Advantages/Disadvantages of Linear regression
- **Pros**:
- - Simplicity and interpretability: linear regression is an extremely simple method. It is very easy to use, understand, and explain.
- - The best fit line is the line with minimum error from all the points, it has high efficiency
- - It needs little tuning
+5. Leverage: Slope has the highest sensitivity to points furthest from the mean 
 
- **Cons**:
- - Linear regression only models relationships between dependent and independent variables that are linear. It assumes there is a straight-line relationship between them which is incorrect sometimes.
- - Linear regression is very sensitive to the outliers in the data (See Leverage). 
- - Linear regression is very sensitive to missing data. (biased parameter)
- - Linear regression needs feature scaling. (for gradient descent)
- - If the number of the parameters are greater than the samples, then the model starts to model noise rather than relationship
- - Correlated features may affect performance.
- - Extensive feature engineering required.
+## Advantages/Disadvantages of Linear regression
+**Pros**:
+    - Simplicity and interpretability: linear regression is an extremely simple method. It is very easy to use, understand, and explain.
+    - The best fit line is the line with minimum error from all the points, it has high efficiency
+    - It needs little tuning
+
+**Cons**:
+    - Linear regression only models relationships between dependent and independent variables that are linear. It assumes there is a straight-line relationship between them which is incorrect sometimes.
+    - Linear regression is very sensitive to the outliers in the data (See Leverage). 
+    - Linear regression is very sensitive to missing data. (biased parameter)
+    - Linear regression needs feature scaling. (for gradient descent)
+    - If the number of the parameters are greater than the samples, then the model starts to model noise rather than relationship
+    - Correlated features may affect performance.
+    - Extensive feature engineering required.
+
+## Quesion Part
+### Question 1.1: Missing feature
+If you ﬁt a linear model that has some features missing, will your least squares estimates of the reduced model be biased? 
+    - It will be Biased, unless the omitted features are uncorrelated with the included features. 
+### Question 1.2: Extra feature
+If you ﬁt a linear model that has some extra features, will your least squares estimates of the enlarged model be biased?
+    - It will be Unbiased. Even though adding features does not introduce bias (and can decrease it), it can increase the variance of our estimates and produce larger conﬁdence intervals and prediction intervals. 
+### Question 2: More Data
+What if you duplicate all the data and do regression on the new data set?
+    -  The mean and variance of the sample would not change therefore the beta estimation would be the same. The standard error will go down. However, since the sample size is doubled this will result in the lower p-value for the beta. This tells us that by simply doubling/duplicating the data, we could trick the regression model to have smaller confidence interval.
 
 
 # LASSO and Ridge <a name="LASSOandRidge"></a>
 ## Basic Concepts
 ![](images/lasso_rigde.png)
-### Question 1: Why LASSO has the property of _feature selection_ but Ridge does not?
- - By Intuition:
- ![](images/lasso_select_feature_1_1.png)
- ![](images/lasso_select_feature_1_2.png)
 
- - By Lasso Solution: (Note there is not closed form formula for Lasso, unless A has orthnormal matrix)
- ![](images/lasso_select_feature_2.png)
- ### Question 2: What is regularization?
- - What: Regularization is used to prevent overfitting. It significantly reduces the variance of the model, without substantial increase in its bias. It will improve the generalization of a model and decrease the complexity of a model.
- - How: It adds a penalty on the loss function to reduce the freedom of the model. Hence the model will be less likely to fit the noise of the training data. 
- ### Question 3: How to choose Lambda?
- Lambda is the tuning parameter that decides how much we want to penalize the flexibility of our model. As lambda increases, the impact of the shrinkage penalty grows, and the ridge regression coefficient estimates will approach zero. Selecting a good value of lambda is critical, we can use cross validation to choose good lambda.
- 
- 
- 
- ## Advantages/Disadvantages of LASSO
- **Pros**:
- - Useful for feature selection
- - Much easier to interpret and produces simple models
- - Lasso to perform better in a setting where a relatively small number of predictors have substantial coefficients, and the remaining predictors have coefficients that are very small or that equal zero
+## Advantages/Disadvantages of LASSO
+**Pros**:
+    - Useful for feature selection
+    - Much easier to interpret and produces simple models
+    - Lasso to perform better in a setting where a relatively small number of predictors have substantial coefficients, and the remaining predictors have coefficients that are very small or that equal zero
 
- **Cons**:
- - LASSO has no closed formula
- - LASSO needs feature scaling. (for fair regularization to parameters)
- - For n'<'p case (high dimensional case), LASSO can at most select n features. This has to do with the nature of convex optimization problem LASSO tries to minimize.
- - For usual case where we have correlated features which is usually the case for real word datasets, LASSO will select only one feature from a group of correlated features. That selection also happens to be arbitrary in nature. Often one might not want this behavior. Like in gene expression the ideal gene selection method is: eliminate the trivial genes and automatically include whole groups into the model once one gene among them is selected (‘grouped selection’). LASSO doesn't help in grouped selection.
- 
-  ## Advantages/Disadvantages of Ridge
- **Pros**:
- - Useful for preventing overfitting. As lambda increases, the shrinkage of the ridge coefficient estimates leads to a substantial reduction in the variance of the predictions, at the expense of a slight increase in bias.
- - Ridge regression works best in situations where the least squares estimates have high variance. Meaning that a small change in the training data can cause a large change in the least squares coefficient estimates
- - Ridge regression has unique solution and has substantial computational advantages.
+**Cons**:
+    - LASSO has no closed formula
+    - LASSO needs feature scaling. (for fair regularization to parameters)
+    - For n'<'p case (high dimensional case), LASSO can at most select n features. This has to do with the nature of convex optimization problem LASSO tries to minimize.
+    - For usual case where we have correlated features which is usually the case for real word datasets, LASSO will select only one feature from a group of correlated features. That selection also happens to be arbitrary in nature. Often one might not want this behavior. Like in gene expression the ideal gene selection method is: eliminate the trivial genes and automatically include whole groups into the model once one gene among them is selected (‘grouped selection’). LASSO doesn't help in grouped selection.
 
- **Cons**:
- - Ridge regression is not able to shrink coefficients to exactly zero. As a result, it cannot perform feature selection.
- - LASSO needs feature scaling. (for fair regularization to parameters)
- 
- # LogisticRegression <a name = "LogisticRegression"></a>
- ## Basic Concept:
- Logistic Regression is a classification method, usually do binary classification 0 or 1. A logistic model is one where the log-odds(logit) of the probability of an event is a linear combination of independent variables.
-  ![](images/def_logistic_regression_ml.png)
- ## Assumptions:
- - The outcome is a binary variable like yes vs no, positive vs negative, 1 vs 0.
- - There is a linear relationship between the logit of the target and independent variables.
- - Others similiar to linear regression, such as multi-collinearity.
- ## Cost function of Logistic Regression
-  ![](images/logistic_regression_logloss.png)
- **MLE**: For large data, the theory of MLEs can be used to show that the parameter estimates are jointly normally distributed, and conﬁdence intervals can be computed. 
- **The difference between the cost function and the loss function**: The loss function computes the error for a single training example; the cost function is the average of the loss function of the entire training set.
- 
- ## Extension: Another Perspective to Regularization - Bayesian MAP
-  ![](images/regularization_MAP.png)
- 
- ## Extension: Activation Functions (in Neural Network)
- _Ref._ [7 types neural network activation functions](https://missinglink.ai/guides/neural-network-concepts/7-types-neural-network-activation-functions-right/#commonnonlinear)
-  ![](images/activation_function.jpg)
- ### Sigmoid / Logistic
- - Pros
+## Advantages/Disadvantages of Ridge
+**Pros**:
+- Useful for preventing overfitting. As lambda increases, the shrinkage of the ridge coefficient estimates leads to a substantial reduction in the variance of the predictions, at the expense of a slight increase in bias.
+- Ridge regression works best in situations where the least squares estimates have high variance. Meaning that a small change in the training data can cause a large change in the least squares coefficient estimates
+- Ridge regression has unique solution and has substantial computational advantages.
+
+**Cons**:
+- Ridge regression is not able to shrink coefficients to exactly zero. As a result, it cannot perform feature selection.
+- LASSO needs feature scaling. (for fair regularization to parameters)
+
+## Quesion Part
+### Question 1: Feature Selection
+Why LASSO has the property of _feature selection_ but Ridge does not?
+    - By Intuition
+    ![](images/lasso_select_feature_1_1.png)
+    ![](images/lasso_select_feature_1_2.png)
+    - By Lasso Solution: (Note there is not closed form formula for Lasso, unless A has orthnormal matrix)
+    ![](images/lasso_select_feature_2.png)
+### Question 2: Regularization
+What is regularization?
+    - What: Regularization is used to prevent overfitting. It significantly reduces the variance of the model, without substantial increase in its bias. It will improve the generalization of a model and decrease the complexity of a model.
+    - How: It adds a penalty on the loss function to reduce the freedom of the model. Hence the model will be less likely to fit the noise of the training data. 
+### Question 3: Parameter Tuning
+How to choose Lambda?
+    - Lambda is the tuning parameter that decides how much we want to penalize the flexibility of our model. As lambda increases, the impact of the shrinkage penalty grows, and the ridge regression coefficient estimates will approach zero. Selecting a good value of lambda is critical, we can use cross validation to choose good lambda.
+
+
+# LogisticRegression <a name = "LogisticRegression"></a>
+## Basic Concept:
+Logistic Regression is a classification method, usually do binary classification 0 or 1. A logistic model is one where the log-odds(logit) of the probability of an event is a linear combination of independent variables.
+![](images/def_logistic_regression_ml.png)
+## Assumptions:
+- The outcome is a binary variable like yes vs no, positive vs negative, 1 vs 0.
+- There is a linear relationship between the logit of the target and independent variables.
+- Others similiar to linear regression, such as multi-collinearity.
+
+## Cost function of Logistic Regression
+![](images/logistic_regression_logloss.png)
+**MLE**: For large data, the theory of MLEs can be used to show that the parameter estimates are jointly normally distributed, and conﬁdence intervals can be computed. 
+**The difference between the cost function and the loss function**: The loss function computes the error for a single training example; the cost function is the average of the loss function of the entire training set.
+
+## Extension: Another Perspective to Regularization - Bayesian MAP
+![](images/regularization_MAP.png)
+
+## Extension: Activation Functions (in Neural Network)
+_Ref._ [7 types neural network activation functions](https://missinglink.ai/guides/neural-network-concepts/7-types-neural-network-activation-functions-right/#commonnonlinear)
+![](images/activation_function.jpg)
+### Sigmoid / Logistic
+- Pros
     - Smooth gradient, preventing “jumps” in output values.
     - Output values bound between 0 and 1, normalizing the output of each neuron.
     - Clear predictions: for X above 2 or below -2, tends to bring the Y value (the prediction) to the edge of the curve, very close to 1 or 0. This enables clear predictions.
- - Cons
+- Cons
     - Vanishing gradient: for very high or very low values of X, there is almost no change to the prediction, causing a vanishing gradient problem. This can result in the network refusing to learn further, or being too slow to reach an accurate prediction.
     - Outputs not zero centered.
     - Computationally expensive
+
 ### TanH / Hyperbolic Tangent
 - Pros
     - Zero centered—making it easier to model inputs that have strongly negative, neutral, and strongly positive values.
     - Otherwise like the Sigmoid function.
 - Cons
     - Like the Sigmoid function
+
 ### ReLU (Rectified Linear Unit)
 - Pros
     - Computationally efficient—allows the network to converge very quickly
     - Non-linear: although it looks like a linear function, ReLU has a derivative function and allows for backpropagation
 - Cons
     - The Dying ReLU problem: when inputs approach zero, or are negative, the gradient of the function becomes zero, the network cannot perform backpropagation and cannot learn.
+
 ### Softmax
 ![](images/softMax.png)
 - Pros
@@ -170,21 +179,21 @@
 - Usage in torch:
     - _NLLLoss_: The negative log likelihood loss. It is useful to train a classification problem with C classes. The input given through a forward call is expected to contain log-probabilities of each class. Obtaining log-probabilities in a neural network is easily achieved by adding a _LogSoftmax_ layer in the last layer of your network.
     - _CrossEntropyLoss_: If you prefer not to add an extra layer (_LogSoftmax_), you may use _CrossEntropyLoss_ instead. _CrossEntropyLoss_ combines nn.LogSoftmax() and nn.NLLLoss() in one single class. 
-    
-### Advantages/Disadvantages of Logistic Regression
- **Pros**:
- - Outputs have a nice probabilistic interpretation.
- - Based on MLE, we can do hypothesis testing on the parameter estimates of the model.
- - The algorithm can be regularized to avoid overfitting. Multi-collinearity is not really an issue and can be countered with L2 regularization to an extent.
- - Logistic Regression has been proven over and over to be very robust in small data problems, because it has strong assumption. For example: Learning curve analysis shows that LR performs better than DT in small data scenarios)
- - Logistic models can be updated easily with new data using stochastic gradient descent.
- - Linear combination of parameters β and the input vector will be incredibly easy to compute.
- - Wide spread industry comfort for logistic regression solutions.
 
- **Cons**:
- - Logistic regression tends to underperform when there are multiple or non-linear decision boundaries. They are not flexible enough to naturally capture more complex relationships. 
- - Doesn’t handle large number of categorical features/variables well.
-    
+### Advantages/Disadvantages of Logistic Regression
+**Pros**:
+    - Outputs have a nice probabilistic interpretation.
+    - Based on MLE, we can do hypothesis testing on the parameter estimates of the model.
+    - The algorithm can be regularized to avoid overfitting. Multi-collinearity is not really an issue and can be countered with L2 regularization to an extent.
+    - Logistic Regression has been proven over and over to be very robust in small data problems, because it has strong assumption. For example: Learning curve analysis shows that LR performs better than DT in small data scenarios)
+    - Logistic models can be updated easily with new data using stochastic gradient descent.
+    - Linear combination of parameters β and the input vector will be incredibly easy to compute.
+    - Wide spread industry comfort for logistic regression solutions.
+
+**Cons**:
+    - Logistic regression tends to underperform when there are multiple or non-linear decision boundaries. They are not flexible enough to naturally capture more complex relationships. 
+    - Doesn’t handle large number of categorical features/variables well.
+
 <!-- ## Welcome to GitHub Pages
 
 You can use the [editor on GitHub](https://github.com/hedygithub/DiHe.github.io/edit/gh-pages/index.md) to maintain and preview the content for your website in Markdown files.
