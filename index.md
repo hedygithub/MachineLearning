@@ -136,7 +136,7 @@
  **The difference between the cost function and the loss function**: The loss function computes the error for a single training example; the cost function is the average of the loss function of the entire training set.
  
  ### Extension: Another Perspective to Regularization - Bayesian MAP
-  ![](https://github.com/hedygithub/MachineLearning/blob/gh-pages/images/reglurization_MAP.png)
+  ![](https://github.com/hedygithub/MachineLearning/blob/gh-pages/images/regularization_MAP.png)
  
  ### Extension: Activation Functions (in Neural Network)
  _Ref._ [7 types neural network activation functions](https://missinglink.ai/guides/neural-network-concepts/7-types-neural-network-activation-functions-right/#commonnonlinear)
