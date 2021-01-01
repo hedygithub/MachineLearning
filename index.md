@@ -244,7 +244,7 @@ The simplest way to do smoothing is to add one to all the counts, which is Lapla
 - In Bayesian probability theory, if the posterior distributions p(θ | x) are in the same probability distribution family as the prior probability distribution p(θ), the prior and posterior are then called conjugate distributions, and the prior is called a conjugate prior for the likelihood function p(x | θ). 
 ![](images/conjugate_priors.png) 
 
-- Examplees 
+- Examples 
     - Beta prior, Bernoulli samples
     - Normal prior, Normal samples
     - Gamma prior, Poisson samples
