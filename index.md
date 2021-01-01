@@ -2,6 +2,12 @@
 1. [Linear Regression](#LinearRegression)
 2. [LASSO and Ridge](#LASSOandRidge)
 3. [Logistic Regression](#LogisticRegression)
+4. [Naive Bayes](#NaiveBayes)
+# Main References
+- [Introduction to Data Science (NYU CDS 1001)](https://github.com/briandalessandro/DataScienceCourse/tree/master/ipython)
+- Notes of Probability and Statistics for Data Science (NYU CDS 1002)
+- [Optimization and Computational Linear Algebra for Data Science (NYU CDS 1002)](https://leomiolane.github.io/linalg-for-ds.html)
+- [Bruce Yang: The Breadth of Machine Learning: Part I](https://bruceyanghy.github.io/posts/machine_learning_breadth/index_breadth.html)
 
 # Linear Regression <a name="LinearRegression"></a>
 ## Basic Concepts 
@@ -131,7 +137,7 @@ How to choose Lambda?
 - Lambda is the tuning parameter that decides how much we want to penalize the flexibility of our model. As lambda increases, the impact of the shrinkage penalty grows, and the ridge regression coefficient estimates will approach zero. Selecting a good value of lambda is critical, we can use cross validation to choose good lambda.
 
 
-# LogisticRegression <a name = "LogisticRegression"></a>
+# Logistic Regression <a name = "LogisticRegression"></a>
 ## Basic Concept:
 Logistic Regression is a classification method, usually do binary classification 0 or 1. A logistic model is one where the log-odds(logit) of the probability of an event is a linear combination of independent variables.
 ![](images/def_logistic_regression_ml.png)
@@ -140,10 +146,15 @@ Logistic Regression is a classification method, usually do binary classification
 - There is a linear relationship between the logit of the target and independent variables.
 - Others similiar to linear regression, such as multi-collinearity.
 
-## Cost function of Logistic Regression
+## Cost function: 
+- Log-loss (Cross-Entropy)
 ![](images/logistic_regression_logloss.png)
-**MLE**: For large data, the theory of MLEs can be used to show that the parameter estimates are jointly normally distributed, and conﬁdence intervals can be computed. 
-**The difference between the cost function and the loss function**: The loss function computes the error for a single training example; the cost function is the average of the loss function of the entire training set.
+
+- Understand Cross-Entropy from information theory:
+![](images/cross_entropy_understanding.png)
+
+- MLE: For large data, the theory of MLEs can be used to show that the parameter estimates are jointly normally distributed, and conﬁdence intervals can be computed. 
+- The difference between the cost function and the loss function: The loss function computes the error for a single training example; the cost function is the average of the loss function of the entire training set.
 
 ## Extension: Another Perspective to Regularization - Bayesian MAP
 ![](images/regularization_MAP.png)
@@ -175,14 +186,14 @@ _Ref._ [7 types neural network activation functions](https://missinglink.ai/guid
 - Cons
     - The Dying ReLU problem: when inputs approach zero, or are negative, the gradient of the function becomes zero, the network cannot perform backpropagation and cannot learn.
 
-### Softmax
+### Extension: Softmax (Muti-class Activation Function)
 ![](images/softMax.png)
 - Pros
     - Able to handle multiple classes: only one class in other activation functions—normalizes the outputs for each class between 0 and 1, and divides by their sum, giving the probability of the input value being in a specific class.
     - Useful for output neurons—typically: Softmax is used only for the output layer, for neural networks that need to classify inputs into multiple categories. 
 - Usage in torch:
-    - _NLLLoss_: The negative log likelihood loss. It is useful to train a classification problem with C classes. The input given through a forward call is expected to contain log-probabilities of each class. Obtaining log-probabilities in a neural network is easily achieved by adding a _LogSoftmax_ layer in the last layer of your network.
-    - _CrossEntropyLoss_: If you prefer not to add an extra layer (_LogSoftmax_), you may use _CrossEntropyLoss_ instead. _CrossEntropyLoss_ combines nn.LogSoftmax() and nn.NLLLoss() in one single class. 
+    - [NLLLoss](https://pytorch.org/docs/stable/generated/torch.nn.NLLLoss.html): The negative log likelihood loss. It is useful to train a classification problem with C classes. The input given through a forward call is expected to contain log-probabilities of each class. Obtaining log-probabilities in a neural network is easily achieved by adding a _LogSoftmax_ layer in the last layer of your network.
+    - [CrossEntropyLoss](https://pytorch.org/docs/stable/generated/torch.nn.CrossEntropyLoss.html): If you prefer not to add an extra layer (_LogSoftmax_), you may use _CrossEntropyLoss_ instead. _CrossEntropyLoss_ combines nn.LogSoftmax() and nn.NLLLoss() in one single class. 
 
 ### Advantages/Disadvantages of Logistic Regression
 **Pros**:
