@@ -211,14 +211,14 @@ _Ref._ [7 types neural network activation functions](https://missinglink.ai/guid
 
 # Niave Bayes <a name="NaiveBayes"></a>
 ## Basic Concepts & Assumptions
-- Naive Bayes is a **generative model**, and is used for classification problems, especially text classification.
-- Many language processing tasks can be viewed as tasks of classiﬁcation. Text categorization,in which an entire text is assigned a class from a ﬁnite set, includes such tasks as sentiment analysis, spam detection, language identiﬁcation, and authorship attribution. Sentiment analysis classiﬁes a text as reﬂecting the positive or negative orientation (sentiment) that a writer expresses toward some object. 
+Naive Bayes is a **generative model**, and is used for classification problems, especially text classification.
+Many language processing tasks can be viewed as tasks of classiﬁcation. Text categorization,in which an entire text is assigned a class from a ﬁnite set, includes such tasks as sentiment analysis, spam detection, language identiﬁcation, and authorship attribution. Sentiment analysis classiﬁes a text as reﬂecting the positive or negative orientation (sentiment) that a writer expresses toward some object. 
 1. Bayes' Rule: 
 ![](images/bayes_rules.png)
 2. Assumptions: 
-- the bag of words assumption (position doesn’t matter) 
-- the conditional independence assumption (words are conditionally independent of each other given the class; the occurrence of a certain feature is independent of the occurrence of other features)
-![](images/naive_bayes_assumptions.png)
+    - the bag of words assumption (position doesn’t matter) 
+    - the conditional independence assumption (words are conditionally independent of each other given the class; the occurrence of a certain feature is independent of the occurrence of other features)
+    ![](images/naive_bayes_assumptions.png)
 
 ## Laplace Smoothing (Variance-Bias Trade-off)
 If categorical variable has a category (in test data set), which was not observed in training data set, then model will assign a 0 (zero) probability and will be unable to make a prediction. This is often known as “Zero Frequency”. To keep a model from assigning zero probability to these unseen events, we’ll have to shave off a bit of probability mass from some more frequent events and give it to the events we’ve never seen. This modiﬁcation is called smoothing or discounting. Those method will decrease variance at the cost of increasing bias.
