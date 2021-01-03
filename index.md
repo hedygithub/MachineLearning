@@ -3,6 +3,7 @@
 2. [LASSO and Ridge](#LASSOandRidge)
 3. [Logistic Regression](#LogisticRegression)
 4. [Naive Bayes](#NaiveBayes)
+5. [Support Vector Machine](#SVM)
 # Main References
 - [Introduction to Data Science (NYU CDS 1001)](https://github.com/briandalessandro/DataScienceCourse/tree/master/ipython)
 - Notes of Probability and Statistics for Data Science (NYU CDS 1002)
@@ -254,6 +255,29 @@ The simplest way to do smoothing is to add one to all the counts, which is Lapla
 The beta distribution is the conjugate prior of the Binomial distribution. It is a special form of the Dirichlet distribution, where X has only two discrete values. The Dirichlet prior has a specific application to Naïve Bayes because X is often defined as a multinomial. In many cases we only want to deal with a binary random variable, which makes the beta distribution appropriate.
 
 
+# Support Vector Machine <a name="SVM"></a>
+_Ref._ [Wikipedia: Support Vector Machine](https://en.wikipedia.org/wiki/Support-vector_machine
+## Basic Concepts 
+- The goal of SVM is to design a hyperplane that classifies all training vectors in 2 classes. The best choice will be the hyperplane that leaves the maximum margin from both classes. (Hyperplane: is a linear decision surface that splits the space into 2 parts, it is obvious that a hyperplane is a binary classifier. A hyperplane is a p-1 dimension: in two dimensions, a hyperplane is a line, in three dimensions, a hyperplane is a plane.)
+- As a rule of thumb, SVMs are great for relatively small data sets with fewer outliers.
+![](images/svm_image.png) 
+## Hard Margin and Soft Margin (hinge-loss)
+![](images/svm_hard.png) 
+![](images/svm_soft.png) 
+## Solving the Problem through Dual Problem and Quadratic Programing
+![](images/svm_solve.png) 
+## Kernel Trick
+![](images/kernel_trick.png) 
+### Advantages/Disadvantages 
+**Pros**:
+- Strong geometric interpretation 
+- Easily extendable to non-linear decision surfaces, with kernel trick
+- Only use support vextor, the risk of overfitting is less in SVM.
+
+**Cons**:
+- Choose a "good" kernel function is not easy.
+- Can not give probability output.
+- Difficult to understand and interpret the final model, varaible weights and individual impact.
 
 
 
