@@ -63,7 +63,7 @@
     - Adjusted R-squared: compared with R-squared, it isn’t guaranteed to grow as we add features (due to the n−k denominator that penalizes larger models), and thus can be more useful. Other methods for weighing goodness-of-ﬁt against model complexity include the AIC, BIC, and Mallows’s Cp.
 5. Leverage: Slope has the highest sensitivity to points furthest from the mean 
 
-## Advantages/Disadvantages of Linear regression
+## Advantages/Disadvantages
 **Pros**:
 - Simplicity and interpretability: linear regression is an extremely simple method. It is very easy to use, understand, and explain.
 - The best fit line is the line with minimum error from all the points, it has high efficiency
@@ -156,6 +156,20 @@ Logistic Regression is a classification method, usually do binary classification
 - MLE: For large data, the theory of MLEs can be used to show that the parameter estimates are jointly normally distributed, and conﬁdence intervals can be computed. 
 - The difference between the cost function and the loss function: The loss function computes the error for a single training example; the cost function is the average of the loss function of the entire training set.
 
+### Advantages/Disadvantages
+**Pros**:
+- Outputs have a nice probabilistic interpretation.
+- Based on MLE, we can do hypothesis testing on the parameter estimates of the model.
+- The algorithm can be regularized to avoid overfitting. Multi-collinearity is not really an issue and can be countered with L2 regularization to an extent.
+- Logistic Regression has been proven over and over to be very robust in small data problems, because it has strong assumption. For example: Learning curve analysis shows that LR performs better than DT in small data scenarios)
+- Logistic models can be updated easily with new data using stochastic gradient descent.
+- Linear combination of parameters β and the input vector will be incredibly easy to compute.
+- Wide spread industry comfort for logistic regression solutions.
+
+**Cons**:
+- Logistic regression tends to underperform when there are multiple or non-linear decision boundaries. They are not flexible enough to naturally capture more complex relationships. 
+- Doesn’t handle large number of categorical features/variables well.
+
 ## Extension: Another Perspective to Regularization - Bayesian MAP
 ![](images/regularization_MAP.png)
 
@@ -195,19 +209,62 @@ _Ref._ [7 types neural network activation functions](https://missinglink.ai/guid
     - [NLLLoss](https://pytorch.org/docs/stable/generated/torch.nn.NLLLoss.html): The negative log likelihood loss. It is useful to train a classification problem with C classes. The input given through a forward call is expected to contain log-probabilities of each class. Obtaining log-probabilities in a neural network is easily achieved by adding a _LogSoftmax_ layer in the last layer of your network.
     - [CrossEntropyLoss](https://pytorch.org/docs/stable/generated/torch.nn.CrossEntropyLoss.html): If you prefer not to add an extra layer (_LogSoftmax_), you may use _CrossEntropyLoss_ instead. _CrossEntropyLoss_ combines nn.LogSoftmax() and nn.NLLLoss() in one single class. 
 
-### Advantages/Disadvantages of Logistic Regression
+# Niave Bayes <a name="NaiveBayes"></a>
+## Basic Concepts & Assumptions
+Naive Bayes is a **generative model**, and is used for classification problems, especially text classification.
+Many language processing tasks can be viewed as tasks of classiﬁcation. Text categorization,in which an entire text is assigned a class from a ﬁnite set, includes such tasks as sentiment analysis, spam detection, language identiﬁcation, and authorship attribution. Sentiment analysis classiﬁes a text as reﬂecting the positive or negative orientation (sentiment) that a writer expresses toward some object. 
+1. Bayes' Rule: 
+![](images/bayes_rules.png)
+2. Assumptions: 
+    - the bag of words assumption (position doesn’t matter) 
+    - the conditional independence assumption (words are conditionally independent of each other given the class; the occurrence of a certain feature is independent of the occurrence of other features)
+    ![](images/naive_bayes_assumptions.png)
+
+## Laplace Smoothing (Variance-Bias Trade-off)
+If categorical variable has a category (in test data set), which was not observed in training data set, then model will assign a 0 (zero) probability and will be unable to make a prediction. This is often known as “Zero Frequency”. To keep a model from assigning zero probability to these unseen events, we’ll have to shave off a bit of probability mass from some more frequent events and give it to the events we’ve never seen. This modiﬁcation is called smoothing or discounting. Those method will decrease variance at the cost of increasing bias.
+The simplest way to do smoothing is to add one to all the counts, which is Laplace Smotthing. 
+![](images/laplace_smoothing.png)
+
+## Pseudo Code of Naive Bayes with Laplace Smoothing
+![](images/naive_bayes_implement.png)
+
+### Advantages/Disadvantages 
 **Pros**:
-- Outputs have a nice probabilistic interpretation.
-- Based on MLE, we can do hypothesis testing on the parameter estimates of the model.
-- The algorithm can be regularized to avoid overfitting. Multi-collinearity is not really an issue and can be countered with L2 regularization to an extent.
-- Logistic Regression has been proven over and over to be very robust in small data problems, because it has strong assumption. For example: Learning curve analysis shows that LR performs better than DT in small data scenarios)
-- Logistic models can be updated easily with new data using stochastic gradient descent.
-- Linear combination of parameters β and the input vector will be incredibly easy to compute.
-- Wide spread industry comfort for logistic regression solutions.
+- It is easy and fast to predict class of test data set. Needs less training time. Good with moderate to large training data sets. It could be used for making predictions in real time.
+- It also perform well in multi class prediction.
+- Naive Bayes Classifier and Collaborative Filtering together could build a Recommendation System that uses machine learning and data mining techniques to filter unseen information and predict whether a user would like a given resource or not
+- Good when dataset contains many features.
+- When assumption of independence holds, a Naive Bayes classifier performs better compare to other models like logistic regression and you need less training data.
 
 **Cons**:
-- Logistic regression tends to underperform when there are multiple or non-linear decision boundaries. They are not flexible enough to naturally capture more complex relationships. 
-- Doesn’t handle large number of categorical features/variables well.
+- On the other side naive Bayes is also known as a bad estimator, so the probability outputs from predict_proba are not to be taken too seriously.
+- Another limitation of Naive Bayes is the assumption of independent predictors. In real life, it is almost impossible that we get a set of predictors which are completely independent.
+
+## Extention: [Conjugate Prior](https://en.wikipedia.org/wiki/Conjugate_prior)
+- In Bayesian probability theory, if the posterior distributions p(θ | x) are in the same probability distribution family as the prior probability distribution p(θ), the prior and posterior are then called conjugate distributions, and the prior is called a conjugate prior for the likelihood function p(x | θ). 
+![](images/conjugate_priors.png) 
+
+- Examples 
+    - Beta prior, Bernoulli samples
+    - Normal prior, Normal samples
+    - Gamma prior, Poisson samples
+
+- Understanding Laplace Smoothing
+![](images/dirichlet_priors.png) 
+The beta distribution is the conjugate prior of the Binomial distribution. It is a special form of the Dirichlet distribution, where X has only two discrete values. The Dirichlet prior has a specific application to Naïve Bayes because X is often defined as a multinomial. In many cases we only want to deal with a binary random variable, which makes the beta distribution appropriate.
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 <!-- ## Welcome to GitHub Pages
 
