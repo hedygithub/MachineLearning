@@ -3,6 +3,8 @@
 2. [LASSO and Ridge](#LASSOandRidge)
 3. [Logistic Regression](#LogisticRegression)
 4. [Naive Bayes](#NaiveBayes)
+5. [Support Vector Machine](#SVM)
+
 # Main References
 - [Introduction to Data Science (NYU CDS 1001)](https://github.com/briandalessandro/DataScienceCourse/tree/master/ipython)
 - Notes of Probability and Statistics for Data Science (NYU CDS 1002)
@@ -156,7 +158,7 @@ Logistic Regression is a classification method, usually do binary classification
 - MLE: For large data, the theory of MLEs can be used to show that the parameter estimates are jointly normally distributed, and conﬁdence intervals can be computed. 
 - The difference between the cost function and the loss function: The loss function computes the error for a single training example; the cost function is the average of the loss function of the entire training set.
 
-### Advantages/Disadvantages
+## Advantages/Disadvantages
 **Pros**:
 - Outputs have a nice probabilistic interpretation.
 - Based on MLE, we can do hypothesis testing on the parameter estimates of the model.
@@ -200,7 +202,7 @@ _Ref._ [7 types neural network activation functions](https://missinglink.ai/guid
 - Cons
     - The Dying ReLU problem: when inputs approach zero, or are negative, the gradient of the function becomes zero, the network cannot perform backpropagation and cannot learn.
 
-### Extension: Softmax (Muti-class Activation Function)
+## Extension: Softmax (Muti-class Activation Function)
 ![](images/softMax.png)
 - Pros
     - Able to handle multiple classes: only one class in other activation functions—normalizes the outputs for each class between 0 and 1, and divides by their sum, giving the probability of the input value being in a specific class.
@@ -228,7 +230,7 @@ The simplest way to do smoothing is to add one to all the counts, which is Lapla
 ## Pseudo Code of Naive Bayes with Laplace Smoothing
 ![](images/naive_bayes_implement.png)
 
-### Advantages/Disadvantages 
+## Advantages/Disadvantages 
 **Pros**:
 - It is easy and fast to predict class of test data set. Needs less training time. Good with moderate to large training data sets. It could be used for making predictions in real time.
 - It also perform well in multi class prediction.
@@ -254,6 +256,33 @@ The simplest way to do smoothing is to add one to all the counts, which is Lapla
 The beta distribution is the conjugate prior of the Binomial distribution. It is a special form of the Dirichlet distribution, where X has only two discrete values. The Dirichlet prior has a specific application to Naïve Bayes because X is often defined as a multinomial. In many cases we only want to deal with a binary random variable, which makes the beta distribution appropriate.
 
 
+# Support Vector Machine <a name="SVM"></a>
+_Ref._ [Wikipedia: Support Vector Machine](https://en.wikipedia.org/wiki/Support-vector_machine)
+## Basic Concepts 
+- The goal of SVM is to design a hyperplane that classifies all training vectors in 2 classes. The best choice will be the hyperplane that leaves the maximum margin from both classes. (Hyperplane: is a linear decision surface that splits the space into 2 parts, it is obvious that a hyperplane is a binary classifier. A hyperplane is a p-1 dimension: in two dimensions, a hyperplane is a line, in three dimensions, a hyperplane is a plane.)
+- As a rule of thumb, SVMs are great for relatively small data sets with fewer outliers.
+![](images/svm_image.png) 
+
+## Hard Margin and Soft Margin (hinge-loss)
+![](images/svm_hard.png) 
+![](images/svm_soft.png) 
+
+## Solving the Problem through Dual Problem and Quadratic Programing
+![](images/svm_solve.png) 
+
+## Kernel Trick
+![](images/kernel_trick.png) 
+
+## Advantages/Disadvantages 
+**Pros**:
+- Strong geometric interpretation 
+- Easily extendable to non-linear decision surfaces, with kernel trick
+- Only use support vextor, the risk of overfitting is less in SVM.
+
+**Cons**:
+- Choose a "good" kernel function is not easy.
+- Can not give probability output.
+- Difficult to understand and interpret the final model, varaible weights and individual impact.
 
 
 
