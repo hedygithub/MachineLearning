@@ -1,12 +1,14 @@
 # Content
-1. [Linear Regression](#LinearRegression)
-2. [LASSO and Ridge](#LASSOandRidge)
-3. [Logistic Regression](#LogisticRegression)
-4. [Naive Bayes](#NaiveBayes)
-5. [Support Vector Machine](#SVM)
+- [Linear Regression](#LinearRegression)
+- [LASSO and Ridge](#LASSOandRidge)
+- [Logistic Regression](#LogisticRegression)
+- [Naive Bayes](#NaiveBayes)
+- [Support Vector Machine](#SVM)
+- [Decision Tree](#DecisionTree)
 
 # Main References
 - [Introduction to Data Science (NYU CDS 1001)](https://github.com/briandalessandro/DataScienceCourse/tree/master/ipython)
+- Book: Data Science for Business
 - Notes of Probability and Statistics for Data Science (NYU CDS 1002)
 - [Optimization and Computational Linear Algebra for Data Science (NYU CDS 1002)](https://leomiolane.github.io/linalg-for-ds.html)
 - [Bruce Yang: The Breadth of Machine Learning: Part I](https://bruceyanghy.github.io/posts/machine_learning_breadth/index_breadth.html)
@@ -285,11 +287,83 @@ _Ref._ [Wikipedia: Support Vector Machine](https://en.wikipedia.org/wiki/Support
 - Difficult to understand and interpret the final model, varaible weights and individual impact.
 
 
+# Decision Tree <a name="DecisionTree"></a>
+- Decision tree uses a tree structure to specify sequences of decisions and consequences. It breaks down a dataset into smaller subsets based on the important features.
+- There are Regression Tree and Classification Tree.
+- A decision tree employs a structure of nodes and branches: Root node, Internal Node, and Leaf Node.
+- Tree-based methods tend to perform well on unprocessed data (i.e. without normalizing, centering, scaling features).
+
+## Finding and selecting informative attributes
+### Entopy and Information Gain
+Character: Prefer feature(C) with more unique values(c)
+- Entropy: the average amount of information that is encoded by a random variable X.  
+- Conditional Entropy: Given we know X, how much extra information is needed to encode Y.
+- Information Gain (IG): How much new information do we gain on Y by conditioning on X.
+![](images/dt_information_gain.png)
+
+### Gain Ration
+- Gain Ration = IG(C) / IV(C)
+- IV intrinsic value = count unique(c of C)
+
+### Combined
+1) First, IG > Constant A
+2) Then, Rank by Gain Ratio
 
 
+## Pesudocode
+![](images/dt_pesudocode.png)
+
+## Control Complexity
+### Hyperparams Tuning
+- Depth of Tree (+)
+- Min Leaf Size (-)
+- Min Split Size (-)
+![](images/dt_complexity_control.png)
+
+### Pruning
+- Pre-Pruning
+- Post-Pruning
+
+## Advanced Parts
+### Feature Exploration
+Often times the Decision Tree is useful as tool for testing for feature interactions as well as ranking features by their ability to predict the target variable.
+Scikit-learn’s DecisionTree fit function automatically returns normalized information gain for each feature (also called the Gini Importance).
 
 
+### Numeric Variables
+- Features: Use Split Points to discretize it. Try all split points, and choose the highest IG.
+- Target Variable(Regression): Measure Purity
+    - Variance
+    - Weighted Average Variance Reduction
 
+### Probability Estimation
+- Frequency-Based Estimation (FBE): If we are satisfied to assign the same class probability to every member of the segment corresponding to a tree leaf, we can use instance counts at each leaf to compute a class probability estimate. p(c) = Count(c)  / (Count(all) 
+- Frequency-Based Estimation with Laplace correction: p(c) = (Count(c) + k) / (Count(all) + Unique(c) * k). It is useful in small samples. As number of instance increases: converge to the FBE.
+
+
+## Advantages/Disadvantages 
+**Pros**:
+- Easy to interpret (though cumbersome to visualize if large).
+- Easy to implement just a series of if-­then rules. Prediction is cheap: total operations = depth of tree.
+- No feature engineering necessary.
+- Can often handle categorical/text features as is (software dependent).
+- Automatically detect non-­linearities and interactions.
+
+**Cons**:
+- Easy to overfit: flexibility of algorithm requires careful tuning of parameters and leaf pruning.
+- Decision Tree algorithms are greedy: not very stable and small changes in daat can give very different solutions.
+- Difficulty learning in skewed target distributions (entropy is very small at the begining).
+- Not well suited for problems as number of samples shrinks while number of features grows.
+- Decision Tree is often relatively inaccurate when dataset is samll (less assumptions). Many other predictors perform better with similar data. 
+
+
+## Quesion Part
+### Question 1: Logistic Regression versus Tree Induction
+Classification trees and linear classifiers both use linear decision boundaries, what are the differences between them: 
+- Decision Boundary Diresctio: A classification tree uses decision boundaries that are **perpendicular** to the instancespace axes, whereas the linear classifier can use decision boundaries of **any direction or orientation**. This is a direct consequence of the fact that classification trees select **a single attribute** at a time whereas linear classifiers use **a weighted combination of all attributes**. 
+- Subspace Counts: 
+    - A classification tree is a “piecewise” classifier that segments the instance space recursively when it has to, using **a divide-and-conquer approach**. In principle, a classification tree can **cut up the instance space arbitrarily finely into very small regions**.
+    - A linear classifier places a single decision surface through the entire space. It has great freedom in the orientation of the surface, but it is limited to **a single division into two segments**. This is a direct consequence of there being **a single (linear) equation that uses all of the variables**, and must fit the entire data space.
 
 
 
