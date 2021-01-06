@@ -288,6 +288,7 @@ _Ref._ [Wikipedia: Support Vector Machine](https://en.wikipedia.org/wiki/Support
 
 
 # Decision Tree <a name="DecisionTree"></a>
+## Basic Concepts 
 - Decision tree uses a tree structure to specify sequences of decisions and consequences. It breaks down a dataset into smaller subsets based on the important features.
 - There are Regression Tree and Classification Tree.
 - A decision tree employs a structure of nodes and branches: Root node, Internal Node, and Leaf Node.
