@@ -304,14 +304,11 @@ Character: Prefer feature(C) with more unique values(c)
 ### Gain Ration
 - Gain Ration = IG(C) / IV(C)
 - IV intrinsic value = count unique(c of C)
-
-### Combined
-1) First, IG > Constant A
-2) Then, Rank by Gain Ratio
+- Combined: 1) First, IG > Constant A. 2) Then, Rank by Gain Ratio
 
 
 ## Pesudocode
-![](images/dt_pesudocode.png)
+![](images/dt_pseudocode.png)
 
 ## Control Complexity
 ### Hyperparams Tuning
