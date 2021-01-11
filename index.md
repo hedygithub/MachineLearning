@@ -408,12 +408,13 @@ The above computation is made for each feature in each tree and then averaged ov
 - "Out-of-bag" error calculation. Each tree is built from a **bootstrap sample** of the data, so that for each tree, some portion of the data is not used for that tree. The Random Forest method computes an out-of-bag prediction for each record  [𝑥𝑖,𝑦𝑖]  by averaging the prediction  𝑓𝑏(𝑥𝑖,𝑦𝑖)  on record  𝑖  for the bootstrap iterations in which record  𝑖  was not chosen in the bootstrap. The out-of-bag prediction can then be used to compute out-of-sample error for model selection and validation. This method should be equivalent to  𝑁-fold cross-validation. 
 
 ## Advantages/Disadvantages 
-**Pros**
+**Pros**:
 - A single decision tree tends to overfit the data. The process of averaging or combining the results of different decision trees helps to overcome the problem of overfitting.
 - Random forests are extremely flexible and have very high accuracy. 
 - They also do not require preparation of the input data. You do not have to scale the data. 
 - It also maintains accuracy even when a large proportion of the data are missing.
-**Cons**
+
+**Cons**:
 - The main disadvantage of Random forests is their complexity. They are much harder and time-consuming to construct than decision trees.
 - They are less intuitive. When you have a large collection of decision trees it is hard to have an intuitive grasp of the relationship existing in the input data.
 - In addition, the prediction process using random forests is time-consuming than other algorithms.
@@ -422,10 +423,10 @@ The above computation is made for each feature in each tree and then averaged ov
 ## Question Part
 ### Question 1: Bootstraping versus Traditional Statistical Method
 Please compare Bootstraping versus Traditional Statistical Method, and state why we use former?
-- 1.1) Results derived from bootstraping are basically identical to those of the traditional approach. 
-- 1.2) Both rely largely on the observed data. If the observed data contains outliers, both may skew the estimates.
-- 2.1) The traditional procedure requires one to have a test statistic that satisfies particular assumptions in order to achieve valid results, and this is largely dependent on the experimental design. The traditional approach also uses theory to tell what the sampling distribution should look like, but the results fall apart if the assumptions of the theory are not met. 
-- 2.2) The bootstrapping method, on the other hand, takes the original sample data and then resamples it to create many [simulated] samples. This approach does not rely on the theory since the sampling distribution can simply be observed, and one does not have to worry about any assumptions. This technique allows for accurate estimates of statistics, which is crucial when using data to make decisions.
+- Results derived from bootstraping are basically identical to those of the traditional approach. 
+- Both rely largely on the observed data. If the observed data contains outliers, both may skew the estimates.
+- The traditional procedure requires one to have a test statistic that satisfies particular assumptions in order to achieve valid results, and this is largely dependent on the experimental design. The traditional approach also uses theory to tell what the sampling distribution should look like, but the results fall apart if the assumptions of the theory are not met. 
+- The bootstrapping method, on the other hand, takes the original sample data and then resamples it to create many [simulated] samples. This approach does not rely on the theory since the sampling distribution can simply be observed, and one does not have to worry about any assumptions. This technique allows for accurate estimates of statistics, which is crucial when using data to make decisions.
 
 
 <!-- ## Welcome to GitHub Pages
