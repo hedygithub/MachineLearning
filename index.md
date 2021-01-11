@@ -5,7 +5,8 @@
 - [Naive Bayes [Classification]](#NaiveBayes)
 - [Support Vector Machine [Classification]](#SVM)
 - [Decision Tree [Classification]](#DecisionTree)
-- [Bagging & Random Forest [Ensemble]](#RandomForest)
+- [Bagging & Random Forest [Ensemble]](#Bagging)
+- [Boosting, AdaBoost & Gradient Descent [Ensemble]](#Boosting)
 
 # Main References
 - [Introduction to Data Science (NYU CDS 1001)](https://github.com/briandalessandro/DataScienceCourse/tree/master/ipython)
@@ -368,13 +369,14 @@ Classification trees and linear classifiers both use linear decision boundaries,
 
 
 
-# Bagging & Random Forest<a name="RandomForest"></a>
+# Bagging & Random Forest <a name="Bagging"></a>
 
 ## Bootstraping (statistics)
 “Bootstrapping is a statistical procedure that resamples a single dataset to create many simulated samples. This process allows for the calculation of standard errors, confidence intervals, and hypothesis testing” (Forst)
 ![](images/bootstrape.png)
 
 ## Bagging
+Bootstrap aggregation, or bagging is a general-purpose procedure for reducing the variance of a statistical learning method.
 ![](images/bagging.png)
 
 ## RandomForests
@@ -427,6 +429,28 @@ Please compare Bootstraping versus Traditional Statistical Method, and state why
 - Both rely largely on the observed data. If the observed data contains outliers, both may skew the estimates.
 - The traditional procedure requires one to have a test statistic that satisfies particular assumptions in order to achieve valid results, and this is largely dependent on the experimental design. The traditional approach also uses theory to tell what the sampling distribution should look like, but the results fall apart if the assumptions of the theory are not met. 
 - The bootstrapping method, on the other hand, takes the original sample data and then resamples it to create many [simulated] samples. This approach does not rely on the theory since the sampling distribution can simply be observed, and one does not have to worry about any assumptions. This technique allows for accurate estimates of statistics, which is crucial when using data to make decisions.
+
+
+# Boosting, AdaBoost & Gradient Descent <a name="Boosting"></a>
+## Boosting
+Boosting works in a similar way with bagging, except that the trees are grown sequentially: each tree is grown using information from previously grown trees. Boosting does not involve bootstrap sampling; instead each tree is ﬁt on a modiﬁed version of the original data set. 
+![](images/boosting.png)
+![](images/boosting_params.png)
+
+
+## AdaBoost
+Adaboost, shortened for Adaptive Boosting, is an machine learning approach.The idea is to **set weights to both classifiers and data points (samples)** in a way that forces classifiers to concentrate on **observations that are difficult to correctly classify**. This process is done sequentially in that the two weights are adjusted at each step as iterations of the algorithm proceed. This is why Adaboost is referred to as a _sequential ensemble method_: ensemble referring to a type of learning that combines several models to improve the final predictive performance.
+![](images/adaBoost_pseudocode.png)
+
+### Detail Mathmatical Process in _Watermelon Book P173~177_
+
+### Loss Function
+- Why Not 0-1 loss: The 0-1 loss function has nice properties that we would like to take advantage of for many problems. However, because it is not convex, it is difficult to optimize using the 0-1 loss, so we often turn to convex **surrogate loss functions**.
+- What Surrogate Loss Function AdaBoost Use: Exponential Loss
+
+
+## Gradient Boosting
+
 
 
 <!-- ## Welcome to GitHub Pages
