@@ -1,10 +1,11 @@
 # Content
-- [Linear Regression](#LinearRegression)
-- [LASSO and Ridge](#LASSOandRidge)
-- [Logistic Regression](#LogisticRegression)
-- [Naive Bayes](#NaiveBayes)
-- [Support Vector Machine](#SVM)
-- [Decision Tree](#DecisionTree)
+- [Linear Regression [Regression]](#LinearRegression)
+- [LASSO and Ridge [Regression]](#LASSOandRidge)
+- [Logistic Regression [Classification]](#LogisticRegression)
+- [Naive Bayes [Classification]](#NaiveBayes)
+- [Support Vector Machine [Classification]](#SVM)
+- [Decision Tree [Classification]](#DecisionTree)
+- [Bagging & Random Forest [Ensemble]](#RandomForest)
 
 # Main References
 - [Introduction to Data Science (NYU CDS 1001)](https://github.com/briandalessandro/DataScienceCourse/tree/master/ipython)
@@ -288,7 +289,6 @@ _Ref._ [Wikipedia: Support Vector Machine](https://en.wikipedia.org/wiki/Support
 
 
 # Decision Tree <a name="DecisionTree"></a>
-## Basic Concepts 
 - Decision tree uses a tree structure to specify sequences of decisions and consequences. It breaks down a dataset into smaller subsets based on the important features.
 - There are Regression Tree and Classification Tree.
 - A decision tree employs a structure of nodes and branches: Root node, Internal Node, and Leaf Node.
@@ -305,11 +305,14 @@ Character: Prefer feature(C) with more unique values(c)
 ### Gain Ration
 - Gain Ration = IG(C) / IV(C)
 - IV intrinsic value = count unique(c of C)
-- Combined: 1) First, IG > Constant A. 2) Then, Rank by Gain Ratio
+
+### Combined
+1) First, IG > Constant A
+2) Then, Rank by Gain Ratio
 
 
 ## Pesudocode
-![](images/dt_pseudocode.png)
+![](images/dt_pesudocode.png)
 
 ## Control Complexity
 ### Hyperparams Tuning
@@ -355,7 +358,7 @@ Scikit-learn’s DecisionTree fit function automatically returns normalized inf
 - Decision Tree is often relatively inaccurate when dataset is samll (less assumptions). Many other predictors perform better with similar data. 
 
 
-## Quesion Part
+## Question Part
 ### Question 1: Logistic Regression versus Tree Induction
 Classification trees and linear classifiers both use linear decision boundaries, what are the differences between them: 
 - Decision Boundary Diresctio: A classification tree uses decision boundaries that are **perpendicular** to the instancespace axes, whereas the linear classifier can use decision boundaries of **any direction or orientation**. This is a direct consequence of the fact that classification trees select **a single attribute** at a time whereas linear classifiers use **a weighted combination of all attributes**. 
@@ -365,6 +368,64 @@ Classification trees and linear classifiers both use linear decision boundaries,
 
 
 
+# Bagging & Random Forest<a name="RandomForest"></a>
+
+## Bootstraping (statistics)
+“Bootstrapping is a statistical procedure that resamples a single dataset to create many simulated samples. This process allows for the calculation of standard errors, confidence intervals, and hypothesis testing” (Forst)
+![](images/bootstrape.png)
+
+## Bagging
+![](images/bagging.png)
+
+## RandomForests
+### Basic Concept
+The Random Forest algorithm is probably the most well known and utilized implementation of the Bagging technique. 
+A Random Forest is an ensemble of Decision Trees, where both **bagging** and **random feature selection** are used to add randomness and reduce the variance of the forest. 
+![](images/random_forest.png)
+### Why do Random Forests work
+- Bias
+    - A single decision tree is unstable, and has high variance, but can also have extremely low bias. It can detact a all manner of interaction effects, specially when allowed to grow very deep
+    - The  bias  of  the  average  of  identically  distributed  trees  is  equal  to  the  bias  of  the   individual  trees  (in  this  case,  very  low).
+- Variance
+![](images/random_forest_work.png)
+
+### Hyperparameters Tuning:
+Usually over-fit the individual trees, and use some hold-out method to optimize forest level parameters.
+- Tree Level Paramters
+    - _max_depth_: the size of the tree. Usually you don’t want to limit this
+    - _min_sample_split_: the number of instances in an intermediate node, before splitting (usually good to set to 1)
+- Forest Level Parameters
+    - _n_estimators_: the number of trees (and bootstrapped samples) to be used
+    - _max_features_: the number of features that will be randomly sampled for each tree.
+    The default in RandomForestClassifier is max_features=sqrt(total_features), which is generally a good suggestion. The default for n_estimators is 10, which is probably too low. 
+
+### Feature Importance
+Much like with Decision Trees, the Random Forest Classifier has a built in mechanism for evaluating feature importance. Quoting the sklearn documentation: _Features used at the top of the tree contribute to the final prediction of a larger fraction of the input samples. The expected fraction of the samples they contribute to can thus be used as an estimate of the relative importance of the features._
+The above computation is made for each feature in each tree and then averaged over all trees in the forest. The Random Forest Classifier returns an attribute with an importance score for each feature, and these scores sum to 1 across all features.
+
+### Out-of-Bag Error
+- Cross-validation with Random Forest's can be painfully slow. That's because each cross-validation step requires building k * n_estimators trees. 
+- "Out-of-bag" error calculation. Each tree is built from a **bootstrap sample** of the data, so that for each tree, some portion of the data is not used for that tree. The Random Forest method computes an out-of-bag prediction for each record  [𝑥𝑖,𝑦𝑖]  by averaging the prediction  𝑓𝑏(𝑥𝑖,𝑦𝑖)  on record  𝑖  for the bootstrap iterations in which record  𝑖  was not chosen in the bootstrap. The out-of-bag prediction can then be used to compute out-of-sample error for model selection and validation. This method should be equivalent to  𝑁-fold cross-validation. 
+
+## Advantages/Disadvantages 
+**Pros**
+- A single decision tree tends to overfit the data. The process of averaging or combining the results of different decision trees helps to overcome the problem of overfitting.
+- Random forests are extremely flexible and have very high accuracy. 
+- They also do not require preparation of the input data. You do not have to scale the data. 
+- It also maintains accuracy even when a large proportion of the data are missing.
+**Cons**
+- The main disadvantage of Random forests is their complexity. They are much harder and time-consuming to construct than decision trees.
+- They are less intuitive. When you have a large collection of decision trees it is hard to have an intuitive grasp of the relationship existing in the input data.
+- In addition, the prediction process using random forests is time-consuming than other algorithms.
+
+
+## Question Part
+### Question 1: Bootstraping versus Traditional Statistical Method
+Please compare Bootstraping versus Traditional Statistical Method, and state why we use former?
+- 1.1) Results derived from bootstraping are basically identical to those of the traditional approach. 
+- 1.2) Both rely largely on the observed data. If the observed data contains outliers, both may skew the estimates.
+- 2.1) The traditional procedure requires one to have a test statistic that satisfies particular assumptions in order to achieve valid results, and this is largely dependent on the experimental design. The traditional approach also uses theory to tell what the sampling distribution should look like, but the results fall apart if the assumptions of the theory are not met. 
+- 2.2) The bootstrapping method, on the other hand, takes the original sample data and then resamples it to create many [simulated] samples. This approach does not rely on the theory since the sampling distribution can simply be observed, and one does not have to worry about any assumptions. This technique allows for accurate estimates of statistics, which is crucial when using data to make decisions.
 
 
 <!-- ## Welcome to GitHub Pages
