@@ -5,8 +5,11 @@
 - [Naive Bayes [Classification]](#NaiveBayes)
 - [Support Vector Machine [Classification]](#SVM)
 - [Decision Tree [Classification]](#DecisionTree)
+- [Ensemble Overview & Stacking [Ensemble]](#Stacking)
 - [Bagging & Random Forest [Ensemble]](#Bagging)
-- [Boosting, AdaBoost & Gradient Boosting [Ensemble]](#Boosting)
+- [Boosting, AdaBoost & Gradient Boosting](#Boosting)
+- [K-Nearest Neighbors](#knn)
+- [Clustering Overview & K-Means [Clustering]](#kmeans)
 
 # Main References
 - [Introduction to Data Science (NYU CDS 1001)](https://github.com/briandalessandro/DataScienceCourse/tree/master/ipython)
@@ -14,7 +17,7 @@
 - Notes of Probability and Statistics for Data Science (NYU CDS 1002)
 - [Optimization and Computational Linear Algebra for Data Science (NYU CDS 1002)](https://leomiolane.github.io/linalg-for-ds.html)
 - [Bruce Yang: The Breadth of Machine Learning: Part I](https://bruceyanghy.github.io/posts/machine_learning_breadth/index_breadth.html)
-
+- [K-Means Clustering in Python: A Practical Guide](https://realpython.com/k-means-clustering-python/)
 # Linear Regression <a name="LinearRegression"></a>
 ## Basic Concepts 
 ![](images/def_simple_linear_model.png)
@@ -246,7 +249,7 @@ The simplest way to do smoothing is to add one to all the counts, which is Lapla
 - On the other side naive Bayes is also known as a bad estimator, so the probability outputs from predict_proba are not to be taken too seriously.
 - Another limitation of Naive Bayes is the assumption of independent predictors. In real life, it is almost impossible that we get a set of predictors which are completely independent.
 
-## Extention: [Conjugate Prior](https://en.wikipedia.org/wiki/Conjugate_prior)
+## Extension: [Conjugate Prior](https://en.wikipedia.org/wiki/Conjugate_prior)
 - In Bayesian probability theory, if the posterior distributions p(θ | x) are in the same probability distribution family as the prior probability distribution p(θ), the prior and posterior are then called conjugate distributions, and the prior is called a conjugate prior for the likelihood function p(x | θ). 
 ![](images/conjugate_priors.png) 
 
@@ -257,7 +260,7 @@ The simplest way to do smoothing is to add one to all the counts, which is Lapla
 
 - Understanding Laplace Smoothing
 ![](images/dirichlet_priors.png) 
-The beta distribution is the conjugate prior of the Binomial distribution. It is a special form of the Dirichlet distribution, where X has only two discrete values. The Dirichlet prior has a specific application to Naïve Bayes because X is often defined as a multinomial. In many cases we only want to deal with a binary random variable, which makes the beta distribution appropriate.
+The beta distribution is the conjugate prior of the Binomial distribution. It is a special form of the Dirichlet distribution, where X has only two discrete values. The Dirichlet prior has a specific application to Naïve Bayes because X is often defined as a multinomial. In many cases we only want to deal with a binary random variable, which makes the beta distribution appropriate.
 
 
 # Support Vector Machine <a name="SVM"></a>
@@ -298,9 +301,9 @@ _Ref._ [Wikipedia: Support Vector Machine](https://en.wikipedia.org/wiki/Support
 ## Finding and selecting informative attributes
 ### Entopy and Information Gain
 Character: Prefer feature(C) with more unique values(c)
-- Entropy: the average amount of information that is encoded by a random variable X.  
-- Conditional Entropy: Given we know X, how much extra information is needed to encode Y.
-- Information Gain (IG): How much new information do we gain on Y by conditioning on X.
+- Entropy: the average amount of information that is encoded by a random variable X.  
+- Conditional Entropy: Given we know X, how much extra information is needed to encode Y.
+- Information Gain (IG): How much new information do we gain on Y by conditioning on X.
 ![](images/dt_information_gain.png)
 
 ### Gain Ration
@@ -328,8 +331,8 @@ Character: Prefer feature(C) with more unique values(c)
 
 ## Advanced Parts
 ### Feature Exploration
-Often times the Decision Tree is useful as tool for testing for feature interactions as well as ranking features by their ability to predict the target variable.
-Scikit-learn’s DecisionTree fit function automatically returns normalized information gain for each feature (also called the Gini Importance).
+Often times the Decision Tree is useful as tool for testing for feature interactions as well as ranking features by their ability to predict the target variable.
+Scikit-learn’s DecisionTree fit function automatically returns normalized information gain for each feature (also called the Gini Importance).
 
 
 ### Numeric Variables
@@ -345,17 +348,17 @@ Scikit-learn’s DecisionTree fit function automatically returns normalized inf
 
 ## Advantages/Disadvantages 
 **Pros**:
-- Easy to interpret (though cumbersome to visualize if large).
-- Easy to implement just a series of if-­then rules. Prediction is cheap: total operations = depth of tree.
-- No feature engineering necessary.
-- Can often handle categorical/text features as is (software dependent).
-- Automatically detect non-­linearities and interactions.
+- Easy to interpret (though cumbersome to visualize if large).
+- Easy to implement just a series of if-­then rules. Prediction is cheap: total operations = depth of tree.
+- No feature engineering necessary.
+- Can often handle categorical/text features as is (software dependent).
+- Automatically detect non-­linearities and interactions.
 
 **Cons**:
-- Easy to overfit: flexibility of algorithm requires careful tuning of parameters and leaf pruning.
-- Decision Tree algorithms are greedy: not very stable and small changes in daat can give very different solutions.
-- Difficulty learning in skewed target distributions (entropy is very small at the begining).
-- Not well suited for problems as number of samples shrinks while number of features grows.
+- Easy to overfit: flexibility of algorithm requires careful tuning of parameters and leaf pruning.
+- Decision Tree algorithms are greedy: not very stable and small changes in daat can give very different solutions.
+- Difficulty learning in skewed target distributions (entropy is very small at the begining).
+- Not well suited for problems as number of samples shrinks while number of features grows.
 - Decision Tree is often relatively inaccurate when dataset is samll (less assumptions). Many other predictors perform better with similar data. 
 
 
@@ -367,10 +370,39 @@ Classification trees and linear classifiers both use linear decision boundaries,
     - A classification tree is a “piecewise” classifier that segments the instance space recursively when it has to, using **a divide-and-conquer approach**. In principle, a classification tree can **cut up the instance space arbitrarily finely into very small regions**.
     - A linear classifier places a single decision surface through the entire space. It has great freedom in the orientation of the surface, but it is limited to **a single division into two segments**. This is a direct consequence of there being **a single (linear) equation that uses all of the variables**, and must fit the entire data space.
 
+# Ensemble Overview & Stacking <a name="Stacking"></a>
+## Ensemble
+Ensemble methods are meta-algorithms that combine several machine learning techniques into one predictive model in order to **decrease variance (bagging), bias (boosting), or improve predictions (stacking)**.
 
+## Typtes of Ensemble
+- Stacking
+    - Stacking is an ensemble learning technique that combines multiple classification or regression models via a meta-classifier or a meta-regressor.
+    - Often considers heterogeneous base learners.
+    - Example: Taking a weighted combination of the predictions of a total of S different classifiers.
+- Bagging
+    - Decrease variance
+    - The base learners are generated **in parallel** through **resampling**.
+    - Often considers homogeneous base learners.
+    - The basic motivation of parallel methods is to exploit **independence** between the base learners since the error can be reduced dramatically by averaging.
+- Boosting
+    - Decrease bias
+    - The base learners are generated **sequentially**, using **cumulative errors** to inform or weight additional classifiers.  
+    - Often considers homogeneous  base learners.
+    - The basic motivation of sequential methods is to exploit the **dependence** between the base learners. The overall performance can be boosted by weighing previously mislabeled examples with higher weight.
+![](images/baging_boosting.png)
+
+## Stacking Pseudocode
+![](images/stacking_pseudocode.png)
+## Stacking Training Data
+In order to generalize appropriately, the meta-model needs to be built from data that is seperate from the base-models. Otherwise, the system risks overfitting. Note that this is best accomplished when sample sizes are large.  
+
+
+## Quesion Part
+### Question 1: Why stacking work?
+- Case 1: In the case of simple averaging, the weighted average model de-noises individual models that are poentially overfir around the decision boundaries.
+- Case 2: Different models perform better on different parts of the input space S. For example: more complex model will do better on regions of X with higher support(more samples); more biased models may then be better where there is lower support (less samples). Then, Stacking  learns  the  best   of  both  worlds.
 
 # Bagging & Random Forest <a name="Bagging"></a>
-
 ## Bootstraping (statistics)
 “Bootstrapping is a statistical procedure that resamples a single dataset to create many simulated samples. This process allows for the calculation of standard errors, confidence intervals, and hypothesis testing” (Forst)
 ![](images/bootstrape.png)
@@ -387,15 +419,15 @@ A Random Forest is an ensemble of Decision Trees, where both **bagging** and **r
 ### Why do Random Forests work
 - Bias
     - A single decision tree is unstable, and has high variance, but can also have extremely low bias. It can detact a all manner of interaction effects, specially when allowed to grow very deep
-    - The  bias  of  the  average  of  identically  distributed  trees  is  equal  to  the  bias  of  the   individual  trees  (in  this  case,  very  low).
+    - The  bias  of  the  average  of  identically  distributed  trees  is  equal  to  the  bias  of  the   individual  trees  (in  this  case,  very  low).
 - Variance
 ![](images/random_forest_work.png)
 
 ### Hyperparameters Tuning:
 Usually over-fit the individual trees, and use some hold-out method to optimize forest level parameters.
 - Tree Level Paramters
-    - _max_depth_: the size of the tree. Usually you don’t want to limit this
-    - _min_sample_split_: the number of instances in an intermediate node, before splitting (usually good to set to 1)
+    - _max_depth_: the size of the tree. Usually you don’t want to limit this
+    - _min_sample_split_: the number of instances in an intermediate node, before splitting (usually good to set to 1)
 - Forest Level Parameters
     - _n_estimators_: the number of trees (and bootstrapped samples) to be used
     - _max_features_: the number of features that will be randomly sampled for each tree.
@@ -501,6 +533,153 @@ LightGBM from Microsoft and published in 2017 also introduces two techniques to 
 - Computationally expensive, GBMs often require many trees (>1000) which can be time and memory exhaustive.
 - The high flexibility results in many parameters that interact and influence heavily the behavior of the approach. This requires a large grid search during tunning.
 - Less interpretable although this is easily addressed with various tools (varaible importance, partial dependence plots, SHAP, LIME, etc.)
+
+
+# K-Nearest Neighbors <a name="knn"></a>
+## Basic Concept
+![](images/knn_def.png)
+
+## Characters
+- Non-­parametric
+You don't have to make any assumptions about the functional form that estimates E[X|X]. This makes it very powerful for estimating any arbitary decision curve, but extreme flexibility always risks overfitting.
+- Instance-­based learning
+You technically don't need to train it. Estimation of E[Y|X] is done locally and a scoring time by taking the average of Y of the k nearest neighbors of the instance. There is effectively no model, just all of the training data stored in memory.
+
+## Parameters
+### Number of Neighbors
+The less, the more likely to over-fitting
+### Distance 
+#### Properties (similiar to norm)
+Given two points a and b, and a distance function d():
+1. d(a,b) ≥ 0 … non-­negativity 
+2. d(a,b) = 0 only if and only if a=b 
+3. d(a,b) = (b,a)  …  symmetry 
+4. d(a,c) ≤ d(a,b)+d(b,c) … triangle inequality
+
+#### Types
+Lp-­norm  distance  measures
+- Manhattan Distance
+- Euclidean Distance
+
+#### Scale Matters
+Features with higher magnitude tend to dominate distance metrics. It may be required to normalize the data first.
+
+
+## Chanllenges
+### Expensive Search
+- For every instance, it requires O(N) to know its neighbors when a brute force search is used (k-d tree will be faster).
+- How to alleviate it: Approximate Neatest Neighbors
+
+### Curse of Dimensionality (CODA) 
+When using Lp-­norm distance measures, averaged distances increase as the dimensionality increases. In a high-dimensional space, most parts are far from all other points. 
+- As the dimension increases, the ratio of the difference between max and min to the min distance to the center tends to 0. This means all points are equally far apart, leaving no nearest neighbors to learn from.
+
+
+## Advantages/Disadvantages
+**Pros**:
+- Easy to interpret output
+- Naturally handles multi-class cases
+- Do not need to train
+- Predictive power, can do well in practice with enough representative data
+
+**Cons**:
+- Large search problem to find nearest neighbors
+- Storage of data
+- Curse of dimensionality 
+- Must know we have a meaningful distance function
+
+
+## Extension: Approximate Neatest Neighbors
+### Partition: Instead of searching through all points, we will iteratively partition the X space randomly to create subsapces, and search only within those subspaces. We continue partition until we’ve reached designate stopping criteria.
+- Problem of Partition:
+You are limited to just the neighbors in the terminal node of the tree.
+- Solution:
+You don't have to use a single terminal node. Nearby splits (regions) can also be considered.
+![](images/knn_extension.png)
+
+# Clustering Overview & K-Means <a name="kmeans"></a>
+## Clustering
+Clustering is a set of techniques used to partition data into groups, or clusters. Clusters are loosely defined as groups of data objects that are more similar to other objects in their cluster than they are to data objects in other clusters. In practice, clustering helps identify two qualities of data:
+- Meaningfulness: Meaningful clusters expand domain knowledge. 
+- Usefulness: Useful clusters, on the other hand, serve as an intermediate step in a data pipeline. 
+
+## Types of Clustering
+### Partitional Clustering
+- Partitional clustering divides data objects into non-overlapping groups. 
+- These techniques require the user to **specify the number of clusters**, indicated by the variable k. 
+- Many partitional clustering algorithms work through an **iterative process** to assign subsets of data points into k clusters. Two examples of partitional clustering algorithms are k-means and k-medoids.
+- These algorithms are both non-deterministic, meaning they could produce different results from two separate runs even if the runs were based on the same input.
+
+#### Advantages/Disadvantages
+**Pros**:
+- They work well when clusters have a spherical shape.
+- They’re scalable with respect to algorithm complexity.
+**Cons**:
+- They’re not well suited for clusters with **complex shapes and different sizes**.
+- They break down when used with clusters of **different densities**.
+
+### Density-Based Clustering
+- Density-based clustering determines cluster assignments based on the density of data points in a region. Clusters are assigned where there are high densities of data points separated by low-density regions.
+- Unlike the other clustering categories, this approach doesn’t require the user to specify the number of clusters. Instead, there is a **distance-based parameter that acts as a tunable threshold**. This threshold determines how close points must be to be considered a cluster member.
+- Examples of density-based clustering algorithms include Density-Based Spatial Clustering of Applications with Noise (DBSCAN), and Ordering Points To Identify the Clustering Structure ( OPTICS).
+
+#### Advantages/Disadvantages
+**Pros**:
+- They excel at identifying clusters of nonspherical shapes.
+- They’re resistant to outliers.
+**Cons**:
+- They aren’t well suited for clustering in **high-dimensional spaces**.
+- They have trouble identifying clusters of **varying densities**.
+
+
+### Hierarchical Clustering
+- Hierarchical clustering determines cluster assignments by **building a hierarchy**. 
+- This is implemented by either a bottom-up or a top-down approach. These methods produce a tree-based hierarchy of points called a dendrogram. 
+    - Agglomerative clustering is the bottom-up approach. It merges the two points that are the most similar until all points have been merged into a single cluster.
+    - Divisive clustering is the top-down approach. It starts with all points as one cluster and splits the least similar clusters at each step until only single data points remain.
+- Similar to partitional clustering, in hierarchical clustering **the number of clusters (k) is often predetermined** by the user. Clusters are assigned by cutting the dendrogram at a specified depth that results in k groups of smaller dendrograms.
+- Unlike many partitional clustering techniques, hierarchical clustering is a deterministic process, meaning cluster assignments won’t change when you run an algorithm twice on the same input data.
+
+#### Advantages/Disadvantages
+**Pros**:
+- They often reveal the finer details about the relationships between data objects.
+- They provide an interpretable dendrogram.
+**Cons**:
+- They’re computationally expensive with respect to algorithm complexity.
+- They’re sensitive to noise and outliers.
+
+## K-Means Pseudocode
+![](images/k_means_pseudocode.png)
+
+## Discussion of K-Means (similiar to KNN)
+- Distance metrics matters. Most common distance metric is Euclidean distance.
+- Scalling of features matters.
+- Features need to be numeric.
+- Curse of dimensionality.
+
+## Evaluation
+### Goodness of fit: determine k
+#### Inertia
+ ![](images/inertia.png)
+- Inertia can be recognized as a measure of how internally coherent clusters are. 
+- It suffers from various drawbacks:
+    - Inertia makes the assumption that clusters are convex and isotropic, which is not always the case. It responds poorly to elongated clusters, or manifolds with irregular shapes.
+    - Inertia is not a normalized metric: we just know that lower values are better and zero is optimal. But in very high-dimensional spaces, Euclidean distances tend to become inflated (this is an instance of the so-called “curse of dimensionality”). Running a dimensionality reduction algorithm such as Principal component analysis (PCA) prior to k-means clustering can alleviate this problem and speed up the computations.
+
+#### Eblow Method
+- As k increases, the sum of squared distance tends to zero. Imagine we set k to its maximum value n (where n is number of samples) each sample will form its own cluster meaning sum of squared distances equals zero.
+- If the line chart resembles an arm, then the “elbow” (the point of inflection on the curve) is a good indication that the underlying model fits best at that point.
+
+#### Silhouette Value
+- The silhouette value is a measure of how similar an object is to its own cluster (cohesion) compared to other clusters (separation). 
+- The silhouette ranges from −1 to +1, where a high value indicates that the object is well matched to its own cluster and poorly matched to neighboring clusters. If most objects have a high value, then the clustering configuration is appropriate. If many points have a low or negative value, then the clustering configuration may have too many or too few clusters.
+- The silhouette can be calculated with any distance metric, such as the Euclidean distance or the Manhattan distance.
+![](images/silhouette.png)
+
+### Cluster Distribution
+- Do the clusters have practical distribution across them
+### Interpretation
+- Do the clusters have meaningful and useful interpretations.
 
 <!-- ## Welcome to GitHub Pages
 
