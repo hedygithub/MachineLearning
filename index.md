@@ -614,6 +614,7 @@ Clustering is a set of techniques used to partition data into groups, or cluster
 **Pros**:
 - They work well when clusters have a spherical shape.
 - They’re scalable with respect to algorithm complexity.
+
 **Cons**:
 - They’re not well suited for clusters with **complex shapes and different sizes**.
 - They break down when used with clusters of **different densities**.
@@ -627,6 +628,7 @@ Clustering is a set of techniques used to partition data into groups, or cluster
 **Pros**:
 - They excel at identifying clusters of nonspherical shapes.
 - They’re resistant to outliers.
+
 **Cons**:
 - They aren’t well suited for clustering in **high-dimensional spaces**.
 - They have trouble identifying clusters of **varying densities**.
@@ -644,6 +646,7 @@ Clustering is a set of techniques used to partition data into groups, or cluster
 **Pros**:
 - They often reveal the finer details about the relationships between data objects.
 - They provide an interpretable dendrogram.
+
 **Cons**:
 - They’re computationally expensive with respect to algorithm complexity.
 - They’re sensitive to noise and outliers.
@@ -678,6 +681,7 @@ Clustering is a set of techniques used to partition data into groups, or cluster
 
 ### Cluster Distribution
 - Do the clusters have practical distribution across them
+
 ### Interpretation
 - Do the clusters have meaningful and useful interpretations.
 
