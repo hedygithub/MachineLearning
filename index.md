@@ -6,7 +6,7 @@
 - [Support Vector Machine [Classification]](#SVM)
 - [Decision Tree [Classification]](#DecisionTree)
 - [Bagging & Random Forest [Ensemble]](#Bagging)
-- [Boosting, AdaBoost & Gradient Descent [Ensemble]](#Boosting)
+- [Boosting, AdaBoost & Gradient Boosting [Ensemble]](#Boosting)
 
 # Main References
 - [Introduction to Data Science (NYU CDS 1001)](https://github.com/briandalessandro/DataScienceCourse/tree/master/ipython)
@@ -312,8 +312,8 @@ Character: Prefer feature(C) with more unique values(c)
 2) Then, Rank by Gain Ratio
 
 
-## Pesudocode
-![](images/dt_pesudocode.png)
+## Pseudocode
+![](images/dt_pseudocode.png)
 
 ## Control Complexity
 ### Hyperparams Tuning
@@ -442,7 +442,7 @@ Boosting works in a similar way with bagging, except that the trees are grown se
 Adaboost, shortened for Adaptive Boosting, is an machine learning approach.The idea is to **set weights to both classifiers and data points (samples)** in a way that forces classifiers to concentrate on **observations that are difficult to correctly classify**. This process is done sequentially in that the two weights are adjusted at each step as iterations of the algorithm proceed. This is why Adaboost is referred to as a _sequential ensemble method_: ensemble referring to a type of learning that combines several models to improve the final predictive performance.
 ![](images/adaBoost_pseudocode.png)
 
-### Detail Mathmatical Process in _Watermelon Book P173~177_
+### Mathmatical Process in _Watermelon Book P173~177_
 
 ### Loss Function
 - Why Not 0-1 loss: The 0-1 loss function has nice properties that we would like to take advantage of for many problems. However, because it is not convex, it is difficult to optimize using the 0-1 loss, so we often turn to convex **surrogate loss functions**.
@@ -450,7 +450,20 @@ Adaboost, shortened for Adaptive Boosting, is an machine learning approach.The i
 
 
 ## Gradient Boosting
+Gradient boosting is a machine learning technique for regression and classification problems, which produces a prediction model in the form of an ensemble of weak prediction models, typically decision trees. It builds the model in a stage-wise fashion like other boosting methods do, and it generalizes them by allowing optimization of an arbitrary differentiable loss function. 
 
+### Mathmatical Process
+#### Inroduction of "gradient"
+![](images/gradient_boosting_intro.png)
+
+#### Pseudocode
+![](images/gradient_boosting_pseudocode.png)
+
+#### Regularization
+- Gradient boosting iterations M (i.e. the number of trees in the model when the base learner is a decision tree). Increasing M reduces the error on training set, but setting it too high may lead to overfitting. An optimal value of M is often selected by monitoring prediction error on a separate validation data set. Besides controlling M, several other regularization techniques are used.
+- Depth of the trees. The higher this value the more likely the model will overfit the training data. 
+- Shrinkage
+![](images/gradient_boosting_shrinkage.png)
 
 
 <!-- ## Welcome to GitHub Pages
