@@ -683,7 +683,7 @@ Clustering is a set of techniques used to partition data into groups, or cluster
 - Do the clusters have practical distribution across them
 
 ### Interpretation
-- Do the clusters have meaningful and useful interpretations.
+- Do the clusters have meaningful and useful interpretations
 
 <!-- ## Welcome to GitHub Pages
 
