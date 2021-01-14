@@ -7,9 +7,9 @@
 - [Decision Tree [Classification]](#DecisionTree)
 - [Ensemble Overview & Stacking [Ensemble]](#Stacking)
 - [Bagging & Random Forest [Ensemble]](#Bagging)
-- [Boosting, AdaBoost & Gradient Boosting [Ensemble]](#Boosting)
-- [K-Nearest Neighbors [Distance]](#knn)
-
+- [Boosting, AdaBoost & Gradient Boosting](#Boosting)
+- [K-Nearest Neighbors](#knn)
+- [Clustering Overview & K-Means [Clustering]](#kmeans)
 
 # Main References
 - [Introduction to Data Science (NYU CDS 1001)](https://github.com/briandalessandro/DataScienceCourse/tree/master/ipython)
@@ -17,7 +17,7 @@
 - Notes of Probability and Statistics for Data Science (NYU CDS 1002)
 - [Optimization and Computational Linear Algebra for Data Science (NYU CDS 1002)](https://leomiolane.github.io/linalg-for-ds.html)
 - [Bruce Yang: The Breadth of Machine Learning: Part I](https://bruceyanghy.github.io/posts/machine_learning_breadth/index_breadth.html)
-
+- [K-Means Clustering in Python: A Practical Guide](https://realpython.com/k-means-clustering-python/)
 # Linear Regression <a name="LinearRegression"></a>
 ## Basic Concepts 
 ![](images/def_simple_linear_model.png)
@@ -595,9 +595,91 @@ When using Lp-­norm distance measures, averaged distances increase as the dimen
 You are limited to just the neighbors in the terminal node of the tree.
 - Solution:
 You don't have to use a single terminal node. Nearby splits (regions) can also be considered.
-
 ![](images/knn_extension.png)
 
+# Clustering Overview & K-Means <a name="kmeans"></a>
+## Clustering
+Clustering is a set of techniques used to partition data into groups, or clusters. Clusters are loosely defined as groups of data objects that are more similar to other objects in their cluster than they are to data objects in other clusters. In practice, clustering helps identify two qualities of data:
+- Meaningfulness: Meaningful clusters expand domain knowledge. 
+- Usefulness: Useful clusters, on the other hand, serve as an intermediate step in a data pipeline. 
+
+## Types of Clustering
+### Partitional Clustering
+- Partitional clustering divides data objects into non-overlapping groups. 
+- These techniques require the user to **specify the number of clusters**, indicated by the variable k. 
+- Many partitional clustering algorithms work through an **iterative process** to assign subsets of data points into k clusters. Two examples of partitional clustering algorithms are k-means and k-medoids.
+- These algorithms are both non-deterministic, meaning they could produce different results from two separate runs even if the runs were based on the same input.
+
+#### Advantages/Disadvantages
+**Pros**:
+- They work well when clusters have a spherical shape.
+- They’re scalable with respect to algorithm complexity.
+**Cons**:
+- They’re not well suited for clusters with **complex shapes and different sizes**.
+- They break down when used with clusters of **different densities**.
+
+### Density-Based Clustering
+- Density-based clustering determines cluster assignments based on the density of data points in a region. Clusters are assigned where there are high densities of data points separated by low-density regions.
+- Unlike the other clustering categories, this approach doesn’t require the user to specify the number of clusters. Instead, there is a **distance-based parameter that acts as a tunable threshold**. This threshold determines how close points must be to be considered a cluster member.
+- Examples of density-based clustering algorithms include Density-Based Spatial Clustering of Applications with Noise (DBSCAN), and Ordering Points To Identify the Clustering Structure ( OPTICS).
+
+#### Advantages/Disadvantages
+**Pros**:
+- They excel at identifying clusters of nonspherical shapes.
+- They’re resistant to outliers.
+**Cons**:
+- They aren’t well suited for clustering in **high-dimensional spaces**.
+- They have trouble identifying clusters of **varying densities**.
+
+
+### Hierarchical Clustering
+- Hierarchical clustering determines cluster assignments by **building a hierarchy**. 
+- This is implemented by either a bottom-up or a top-down approach. These methods produce a tree-based hierarchy of points called a dendrogram. 
+    - Agglomerative clustering is the bottom-up approach. It merges the two points that are the most similar until all points have been merged into a single cluster.
+    - Divisive clustering is the top-down approach. It starts with all points as one cluster and splits the least similar clusters at each step until only single data points remain.
+- Similar to partitional clustering, in hierarchical clustering **the number of clusters (k) is often predetermined** by the user. Clusters are assigned by cutting the dendrogram at a specified depth that results in k groups of smaller dendrograms.
+- Unlike many partitional clustering techniques, hierarchical clustering is a deterministic process, meaning cluster assignments won’t change when you run an algorithm twice on the same input data.
+
+#### Advantages/Disadvantages
+**Pros**:
+- They often reveal the finer details about the relationships between data objects.
+- They provide an interpretable dendrogram.
+**Cons**:
+- They’re computationally expensive with respect to algorithm complexity.
+- They’re sensitive to noise and outliers.
+
+## K-Means Pseudocode
+![](images/k_means_pseudocode.png)
+
+## Discussion of K-Means (similiar to KNN)
+- Distance metrics matters. Most common distance metric is Euclidean distance.
+- Scalling of features matters.
+- Features need to be numeric.
+- Curse of dimensionality.
+
+## Evaluation
+### Goodness of fit: determine k
+#### Inertia
+ ![](images/inertia.png)
+- Inertia can be recognized as a measure of how internally coherent clusters are. 
+- It suffers from various drawbacks:
+    - Inertia makes the assumption that clusters are convex and isotropic, which is not always the case. It responds poorly to elongated clusters, or manifolds with irregular shapes.
+    - Inertia is not a normalized metric: we just know that lower values are better and zero is optimal. But in very high-dimensional spaces, Euclidean distances tend to become inflated (this is an instance of the so-called “curse of dimensionality”). Running a dimensionality reduction algorithm such as Principal component analysis (PCA) prior to k-means clustering can alleviate this problem and speed up the computations.
+
+#### Eblow Method
+- As k increases, the sum of squared distance tends to zero. Imagine we set k to its maximum value n (where n is number of samples) each sample will form its own cluster meaning sum of squared distances equals zero.
+- If the line chart resembles an arm, then the “elbow” (the point of inflection on the curve) is a good indication that the underlying model fits best at that point.
+
+#### Silhouette Value
+- The silhouette value is a measure of how similar an object is to its own cluster (cohesion) compared to other clusters (separation). 
+- The silhouette ranges from −1 to +1, where a high value indicates that the object is well matched to its own cluster and poorly matched to neighboring clusters. If most objects have a high value, then the clustering configuration is appropriate. If many points have a low or negative value, then the clustering configuration may have too many or too few clusters.
+- The silhouette can be calculated with any distance metric, such as the Euclidean distance or the Manhattan distance.
+![](images/silhouette.png)
+
+### Cluster Distribution
+- Do the clusters have practical distribution across them
+### Interpretation
+- Do the clusters have meaningful and useful interpretations.
 
 <!-- ## Welcome to GitHub Pages
 
