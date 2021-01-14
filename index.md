@@ -448,23 +448,59 @@ Adaboost, shortened for Adaptive Boosting, is an machine learning approach.The i
 - Why Not 0-1 loss: The 0-1 loss function has nice properties that we would like to take advantage of for many problems. However, because it is not convex, it is difficult to optimize using the 0-1 loss, so we often turn to convex **surrogate loss functions**.
 - What Surrogate Loss Function AdaBoost Use: Exponential Loss
 
+### Regularization
+- which weak classifier might work best to solve their given classification problem
+- The number of boosting rounds that should be used during the training phase.
+
+### Advantages/Disadvantages 
+**Pros**:
+- AdaBoost is a powerful classification algorithm that has enjoyed practical success with applications in a wide variety of fields, such as biology, computer vision, and speech processing.
+- Unlike other powerful classifiers, such as SVM, AdaBoost can achieve similar classification results with much less tweaking of parameters or settings (unless of course you choose to use SVM with AdaBoost).
+- It enables a user to add several weak classifiers to the family of weak classifiers that should be used at each round of boosting. The AdaBoost algorithm will select the weak classifier that works best at that round of boosting.
+**Cons**:
+- AdaBoost can be sensitive to noisy data and outliers. In some problems, however, it can be less susceptible to the overfitting problem than most learning algorithms. 
 
 ## Gradient Boosting
 Gradient boosting is a machine learning technique for regression and classification problems, which produces a prediction model in the form of an ensemble of weak prediction models, typically decision trees. It builds the model in a stage-wise fashion like other boosting methods do, and it generalizes them by allowing optimization of an arbitrary differentiable loss function. 
 
-### Mathmatical Process
-#### Inroduction of "gradient"
+### Loss Function
+It depends on the model, could be square loss or exponential loss. For any loss function, we can derive a gradient boosting algorithm. Absolute loss and Huber loss are more robust to outliers than square loss.
+
+### Inroduction of "gradient"
 ![](images/gradient_boosting_intro.png)
 
-#### Pseudocode
+### Pseudocode
 ![](images/gradient_boosting_pseudocode.png)
 
-#### Regularization
+### Regularization
 - Gradient boosting iterations M (i.e. the number of trees in the model when the base learner is a decision tree). Increasing M reduces the error on training set, but setting it too high may lead to overfitting. An optimal value of M is often selected by monitoring prediction error on a separate validation data set. Besides controlling M, several other regularization techniques are used.
 - Depth of the trees. The higher this value the more likely the model will overfit the training data. 
 - Shrinkage
 ![](images/gradient_boosting_shrinkage.png)
 
+### Gradient Boosting Decision Trees (GBDT)
+#### XGBoost
+XGBoost from the university of washington and published in 2016 introduces two techniques to improve performance. 
+- Firstly the idea of **Weighted Quantile Sketch**, which is an approximation algorithm for determining how to make splits in a decision tree (candidate splits). 
+- The second is **Sparsity-aware split** finding which works on sparse data, data with many missing cells.
+
+#### LightGBM
+LightGBM from Microsoft and published in 2017 also introduces two techniques to improve performance. 
+- **Gradient-based One-Side Sampling** which inspects the most informative samples while skipping the less informative samples. 
+- And **Exclusive Feature Bundling** which takes advantage of sparse datasets by grouping features in a near lossless way.
+
+### Advantages/Disadvantages
+**Pros**:
+- Often provides predictive accuracy that cannot be beat. If you are able to use correct tuning parameters, they generally give somewhat better results than Random Forests.
+- Lots of flexibility: can optimize on different loss functions and provides several hyperparameter tunning options that make the function fit very flexible.
+- No data preprocessing required, often works great with categorical and numerical values as is.
+- Handles missing data, imputation not required.
+
+**Cons**:
+- GBMs will continue improving to minimize all errors. This can overemphasize outliers and cause overfitting. Must use cross-validation to neuralize.
+- Computationally expensive, GBMs often require many trees (>1000) which can be time and memory exhaustive.
+- The high flexibility results in many parameters that interact and influence heavily the behavior of the approach. This requires a large grid search during tunning.
+- Less interpretable although this is easily addressed with various tools (varaible importance, partial dependence plots, SHAP, LIME, etc.)
 
 <!-- ## Welcome to GitHub Pages
 
