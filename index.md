@@ -137,60 +137,59 @@ Methods to handle it:
 
 ## Data Cleaning
 1. Missing Values
-Check with data collection source
-- Delete: Random & Rare
-- Fill Constants: Mean, Median, Dummy Variables
-- Exploit Mulit-Collinearity: Estimate E[missing | X]
+    - Check with data collection source
+    - Delete: Random & Rare
+    - Fill Constants: Mean, Median, Dummy Variables
+    - Exploit Mulit-Collinearity: Estimate E[missing | X]
 
 2. Data Formating 
-- Correct data types
-- Apply calculations to incoherent representations
+    - Correct data types
+    - Apply calculations to incoherent representations
 
 3. Outliers
-- Delete
+    - Delete
 
 4. Scale Difference
-- Normalization
-    - Simple Feature Scaling (X / X_max)
-    - Min-Max
-    - Z-score
+    - Normalization
+        - Simple Feature Scaling (X / X_max)
+        - Min-Max
+        - Z-score
 
 5. Skewed Distribution (for Linear Regression)
-- Standardize: Log()
+    - Standardize: Log()
 
 6. Data Binning
-- Group a set of numerical values into a set of "Bins"
+    - Group a set of numerical values into a set of "Bins"
 
 7. Turning categorical variables into quantitative variables 
-- One-hot encoding 
+    - One-hot encoding 
 
 ## Bivariate
 1. Correlation for Numerical
-- Covariance Matrix & Heatmap
+    - Covariance Matrix & Heatmap
+    - **Pros**:
+        - Expresses negative dependencies
+        - Well understood and intuitive (easy to communicate)
 
-**Pros**:
-- Expresses negative dependencies
-- Well understood and intuitive (easy to communicate)
-
-**Cons**:
-- Can not capture non-linear dependencies better
-- Not apply to categorical data
+    - **Cons**:
+        - Can not capture non-linear dependencies better
+        - Not apply to categorical data
 
 2. Mutual Information
 ![](images/mutual_info.png)
 
-**Pros**:
-- Can capture non-linear dependencies better
-- Works naturally with categorical data
+    - **Pros**:
+        - Can capture non-linear dependencies better
+        - Works naturally with categorical data
 
-**Cons**：
-- Can not express negativedependencies
+    - **Cons**：
+        - Can not express negativedependencies
 
 3. Numerical variable group by Categorical variable
-- Analysis of Variance (ANOVA):
-    - ANOVA: finding correlation between different groups of categorical values
-    - F-test: variation between sample group means divided by variation within sample group
-- Two sample T-test
+    - Analysis of Variance (ANOVA):
+        - ANOVA: finding correlation between different groups of categorical values
+        - F-test: variation between sample group means divided by variation within sample group
+    - Two sample T-test
 
 4. AUC for Numerical and Categorical
 
