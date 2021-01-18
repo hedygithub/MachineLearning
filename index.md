@@ -3,6 +3,7 @@
 - [Data Science Overview](#overview)
 - [Data](#data)
 - [Exploratory Data Analysis & Feature Engineering](#EDA)
+- [Model Selection](#ModelSelection)
 
 # Content 2
 - [Linear Regression [Regression]](#LinearRegression)
@@ -79,6 +80,8 @@ Methods to handle it:
 - Retrain as often as possible
 - Test balance between data recency and data volume
 
+
+
 # Data & Data Cleaning <a name="data"></a>
 ## Think about:
 - Where to get data
@@ -140,7 +143,7 @@ Methods to handle it:
     - Check with data collection source
     - Delete: Random & Rare
     - Fill Constants: Mean, Median, Dummy Variables
-    - Exploit Mulit-Collinearity: Estimate E[missing | X]
+    - Exploit Mulit-Collinearity: Estimate E[missing|X]
 
 2. Data Formating 
     - Correct data types
@@ -212,6 +215,71 @@ Applications:
 - Numerical Variable to Categorical
     - Binning
     - Clustering
+
+
+# Model Selection <a name = "ModelSelection"></a>
+## Feature Selection in the _Data_ Part
+
+## Hyper-Parameter Selection
+### Loss function For Classification
+_Ref._ [Loss_functions_for_classification](https://en.wikipedia.org/wiki/Loss_functions_for_classification)
+![](images/loss.png)
+- 0-1 Loss
+- Logistic Loss / Cross Entropy Loss: Logistic Regression
+- Hinge Loss: SVM
+- Exponential Loss: Boosting 
+
+### Hyper-Parameter Examples
+- Linear Regression & Logistic Regression
+    - L1 / L2: regularization strategy
+    - C: regularization weight
+- Support Vector Machine
+    - C: regularization weight
+    - Kernel and its associated hyperparameters
+- Decision Tree
+    - MaxDepth, Min LeafSize, MinSplitSize
+- Random Forest
+    - Tree Related
+    - Forest Related
+
+### Method
+- Training-Validation-Test
+    1. Training: the training data is used to find the optimal function given the model structure (i.e., fixed algorithm, feature set)
+    2. Validation: the validation data is used to evaluate the loss/risk for a given model configuration. The configuration with the besr loss/risk is selected as the final model
+    3. Test: test data is not used for any parameter or model selection. It is only used as a generalization measure.
+    ![](images/model_selection_process.png)
+
+    - Note: Training error is our empirical risk and the test set error is our approximation of expected risk.
+    - Note: The validation loss metric **does not** have to be the same as the training loss. Sometimes the loss metric for an application (i.e., AUC for validation) is not easy to directly minimize. Insteat we use other metric in training (i.e., logistic loss instead)
+    - Note (for training part): Empirical risk minimization (ERM) is a principle in statistical learning theory which defines a family of learning algorithms and is used to give theoretical bounds on their performance. The core idea is that we cannot know exactly how well an algorithm will work in practice (the true "risk") because we don't know the true distribution of data that the algorithm will work on, but we can instead measure its performance on a known set of training data (the "empirical" risk).
+    - Note (for validation part): Rules to Choose Hyper-Parameter in Validation Set:
+        - Max / Min (validation loss metric)
+        - One-StdError Rule: The one first hits: Max / Min (validation loss metric) - One-StdError
+
+- Cross Validation
+    "Recycle" data using k-fold cross validation as validation scheme.
+    ![](images/model_selection_process_cv.png)
+    - Apply to: SVM, DT...
+    - Note: Random Forest use out-of-bag error rather than error of cross-validation set (RF Based on Bootstraping)
+    - Note: Training error is our empirical risk and the test set error is our approximation of expected risk. 
+- Nested Cross Validation
+    ![](images/loss.png)
+    - Apply to: Time Series Data
+Note: How to split?
+![](images/splitting_schemes.png)
+
+### How to Choose Candidate for Hyper-Parameters
+1. Range & Numers in this Range
+    - Should span the range of low to high model complexity
+2. Method:
+    - Grid Search
+    - Random Search
+
+
+## Alogrithm Selection
+
+### Random Forest vs. Decision Tree
+### Logistic Regression vs. SVM
 
 
 # Linear Regression <a name="LinearRegression"></a>
