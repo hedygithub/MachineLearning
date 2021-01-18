@@ -1,4 +1,10 @@
-# Content
+
+# Content 1
+- [Data Science Overview](#overview)
+- [Data](#data)
+- [Exploratory Data Analysis & Feature Engineering](#EDA)
+
+# Content 2
 - [Linear Regression [Regression]](#LinearRegression)
 - [LASSO and Ridge [Regression]](#LASSOandRidge)
 - [Logistic Regression [Classification]](#LogisticRegression)
@@ -18,6 +24,196 @@
 - [Optimization and Computational Linear Algebra for Data Science (NYU CDS 1002)](https://leomiolane.github.io/linalg-for-ds.html)
 - [Bruce Yang: The Breadth of Machine Learning: Part I](https://bruceyanghy.github.io/posts/machine_learning_breadth/index_breadth.html)
 - [K-Means Clustering in Python: A Practical Guide](https://realpython.com/k-means-clustering-python/)
+
+
+# Data Science Overview <a name="overview"></a>
+## Categories
+### Basic Categories
+- Supervised Learning
+    - Regression
+    - Classfication & Class Probability Estimation
+- Unsupervised Learning
+    - Clustering
+
+### Categories by Parameters
+- Parametric Modeling
+    - Linear Regression
+    - SVM
+- Non-Parametric Modeling
+    - Decision Tree
+    - KNN
+    - K-Means
+
+### Categories for Classfication 
+- Discrimative
+    - Logistic Regression
+- Generative
+    - Naive Bayes
+
+### Categories by Application
+- Similarity matching attempts 
+- Co-occurrence grouping
+- Profiling (behavior description)
+- Link prediction
+- Data reduction
+- Causal modeling
+
+## Cross Industry Standard Process for Data Mining
+- Business Understaning
+- Data Understanding
+- Data Preparation
+- Modeling
+- Evaluation
+- Deployment
+
+## Components
+- Feature Representation
+- Model
+- Objective Function
+- Algorithm for Optimizing
+
+## Concerns
+Concept Drift: P(X), P(Y) or P(Y|X) that changes over time
+Methods to handle it:
+- Monitor predictive performance
+- Retrain as often as possible
+- Test balance between data recency and data volume
+
+# Data & Data Cleaning <a name="data"></a>
+## Think about:
+- Where to get data
+- How to get data
+- What does the data look like
+- What's the limits
+
+## Souces:
+- Internal ETL Process
+- Production Logging / Sampling
+- Web Scraping / API
+- Survey / Panel
+
+## Selction Bias
+### Implications:
+- Affect generalizability
+- Affect identifiablity of model parameters
+
+### Unbias(random) Sample Test
+1. Independent on X (don't want to be biased): 
+    - P(Sampled) = P(Sampled | X = x) 
+    - or P(X = x) = P(X = x | Sampled) 
+2. Independent on Y (sometimes intentional bias on Y): 
+    - P(Sampled) = P(Sampled | Y = y) 
+    - or P(Y = y) = P(Y = y | Sampled) 
+
+### Intentional Selection Bias
+- Often select based on target variable
+- It is rational and based on business and economic factors
+
+### What to do
+- Avoid it
+- Adjust it
+- Expect it
+
+
+# Exploratory Data Analysis & Feature Engineering <a name="EDA"></a>
+## Goals to do EDA
+- Summarize main characteristics of the data [Univariate]
+- Gain better understanding of the data set [Univariate]
+- Uncover **relationships between variables** [Bivariate]
+- Know the data set from a global view [Multivariate]
+- Extract important variables
+
+## Descriptive Statistics
+- Know data types
+    - Numeric
+        - Continuous
+        - Discrete
+    - Categorical
+        - Ordinal
+        - Nominative
+    - Date
+- Summariz statistics using pd.describe()
+- Distribution: Box Plots, Scatterplot
+
+## Data Cleaning
+1. Missing Values
+    - Check with data collection source
+    - Delete: Random & Rare
+    - Fill Constants: Mean, Median, Dummy Variables
+    - Exploit Mulit-Collinearity: Estimate E[missing | X]
+
+2. Data Formating 
+    - Correct data types
+    - Apply calculations to incoherent representations
+
+3. Outliers
+    - Delete
+
+4. Scale Difference
+    - Normalization
+        - Simple Feature Scaling (X / X_max)
+        - Min-Max
+        - Z-score
+
+5. Skewed Distribution (for Linear Regression)
+    - Standardize: Log()
+
+6. Data Binning
+    - Group a set of numerical values into a set of "Bins"
+
+7. Turning categorical variables into quantitative variables 
+    - One-hot encoding 
+
+## Bivariate
+1. Correlation for Numerical
+    - Covariance Matrix & Heatmap
+    - **Pros**:
+        - Expresses negative dependencies
+        - Well understood and intuitive (easy to communicate)
+
+    - **Cons**:
+        - Can not capture non-linear dependencies better
+        - Not apply to categorical data
+
+2. Mutual Information
+![](images/mutual_info.png)
+
+    - **Pros**:
+        - Can capture non-linear dependencies better
+        - Works naturally with categorical data
+
+    - **Cons**：
+        - Can not express negativedependencies
+
+3. Numerical variable group by Categorical variable
+    - Analysis of Variance (ANOVA):
+        - ANOVA: finding correlation between different groups of categorical values
+        - F-test: variation between sample group means divided by variation within sample group
+    - Two sample T-test
+
+4. AUC for Numerical and Categorical
+
+## Multivariate
+### Singular Value Decomposition
+The relative difference between singular values is a function of the level of independence of the columns.
+Applications:
+- The low rank approximation & Data Compression
+    - Cost: the information retained ratio
+- Dimensionality Reduction
+- Recommender Systems
+- Clustering in High Dimensions
+
+
+## Extract Extra Features
+- Datetime
+    - Weekday, Weekend
+    - Holiday
+    - ...
+- Numerical Variable to Categorical
+    - Binning
+    - Clustering
+
+
 # Linear Regression <a name="LinearRegression"></a>
 ## Basic Concepts 
 ![](images/def_simple_linear_model.png)
