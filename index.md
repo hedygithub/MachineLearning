@@ -263,7 +263,7 @@ _Ref._ [Loss_functions_for_classification](https://en.wikipedia.org/wiki/Loss_fu
     - Note: Random Forest use out-of-bag error rather than error of cross-validation set (RF Based on Bootstraping)
     - Note: Training error is our empirical risk and the test set error is our approximation of expected risk. 
 - Nested Cross Validation
-    ![](images/loss.png)
+    ![](images/nested_cross_validation.png)
     - Apply to: Time Series Data
 Note: How to split?
 ![](images/splitting_schemes.png)
