@@ -102,12 +102,12 @@ Methods to handle it:
 - Affect identifiablity of model parameters
 
 ### Unbias(random) Sample Test
-1. Independent on X (don't want to be biased): 
-    - P(Sampled) = P(Sampled|X = x) 
-    - or P(X = x) = P(X = x|Sampled) 
-2. Independent on Y (sometimes intentional bias on Y): 
-    - P(Sampled) = P(Sampled|Y = y) 
-    - or P(Y = y) = P(Y = y|Sampled) 
+- Independent on X (don't want to be biased): 
+    1. P(Sampled) = P(Sampled | X = x) 
+    2. or P(X = x) = P(X = x | Sampled) 
+- Independent on Y (sometimes intentional bias on Y): 
+    1. P(Sampled) = P(Sampled | Y = y) 
+    2. or P(Y = y) = P(Y = y | Sampled) 
 
 ### Intentional Selection Bias
 - Often select based on target variable
@@ -141,10 +141,10 @@ Methods to handle it:
 
 ## Data Cleaning
 1. Missing Values
-    - Check with data collection source
-    - Delete: Random & Rare
-    - Fill Constants: Mean, Median, Dummy Variables
-    - Exploit Mulit-Collinearity: Estimate E[missing|X]
+    1. Check with data collection source
+    2. Delete: Random & Rare
+    2. Fill Constants: Mean, Median, Dummy Variables
+    2. Exploit Mulit-Collinearity: Estimate E[missing | X]
 
 2. Data Formating 
     - Correct data types
@@ -572,7 +572,7 @@ The simplest way to do smoothing is to add one to all the counts, which is Lapla
 - Another limitation of Naive Bayes is the assumption of independent predictors. In real life, it is almost impossible that we get a set of predictors which are completely independent.
 
 ## Extension: [Conjugate Prior](https://en.wikipedia.org/wiki/Conjugate_prior)
-- In Bayesian probability theory, if the posterior distributions p(θ|x) are in the same probability distribution family as the prior probability distribution p(θ), the prior and posterior are then called conjugate distributions, and the prior is called a conjugate prior for the likelihood function p(x|θ). 
+- In Bayesian probability theory, if the posterior distributions p(θ | x) are in the same probability distribution family as the prior probability distribution p(θ), the prior and posterior are then called conjugate distributions, and the prior is called a conjugate prior for the likelihood function p(x | θ). 
 ![](images/conjugate_priors.png) 
 
 - Examples 
