@@ -103,11 +103,9 @@ Methods to handle it:
 
 ### Unbias(random) Sample Test
 - Independent on X (don't want to be biased): 
-    1. P(Sampled) = P(Sampled | X = x) 
-    2. or P(X = x) = P(X = x | Sampled) 
+P(Sampled) = P(Sampled | X = x)  or P(X = x) = P(X = x | Sampled) 
 - Independent on Y (sometimes intentional bias on Y): 
-    1. P(Sampled) = P(Sampled | Y = y) 
-    2. or P(Y = y) = P(Y = y | Sampled) 
+P(Sampled) = P(Sampled | Y = y) or P(Y = y) = P(Y = y | Sampled) 
 
 ### Intentional Selection Bias
 - Often select based on target variable
@@ -141,10 +139,10 @@ Methods to handle it:
 
 ## Data Cleaning
 1. Missing Values
-    1. Check with data collection source
-    2. Delete: Random & Rare
-    2. Fill Constants: Mean, Median, Dummy Variables
-    2. Exploit Mulit-Collinearity: Estimate E[missing | X]
+    - Check with data collection source
+    - Delete: Random & Rare
+    - Fill Constants: Mean, Median, Dummy Variables
+    - Exploit Mulit-Collinearity: Estimate E[missing|X]
 
 2. Data Formating 
     - Correct data types
