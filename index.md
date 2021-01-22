@@ -1,8 +1,9 @@
 
 # Content 1
 - [Data Science Overview](#overview)
-- [Data](#data)
-- [Exploratory Data Analysis & Feature Engineering](#EDA)
+- [Data & Sampling](#data)
+- [Data Cleanning & Exploratory Data Analysis](#EDA)
+- [Feature Engineering](#feature)
 - [Loss Function & Evaluation Metrics](#Evaluation)
 - [Model Selection](#ModelSelection)
 
@@ -26,6 +27,14 @@
 - [Optimization and Computational Linear Algebra for Data Science (NYU CDS 1002)](https://leomiolane.github.io/linalg-for-ds.html)
 - [Bruce Yang: The Breadth of Machine Learning: Part I](https://bruceyanghy.github.io/posts/machine_learning_breadth/index_breadth.html)
 - [K-Means Clustering in Python: A Practical Guide](https://realpython.com/k-means-clustering-python/)
+
+
+
+
+
+
+
+
 
 
 # Data Science Overview <a name="overview"></a>
@@ -68,11 +77,18 @@
 - Evaluation
 - Deployment
 
-## Components
-- Feature Representation
-- Model
-- Objective Function
-- Algorithm for Optimizing
+## Components: Things Data Scientist has to Consider
+1. Data & Sampling
+    - Define Instance
+    - Sampling
+    - Cleaning data
+2. Features Representation
+    - Feature Engineering
+    - Feature Selection ( <- 4 / 6)
+3. Model ( <- 6)
+4. Objective Function / Loss Function (For Model Training)
+5. Algorithm for Optimizing (Accelerate the Process)
+6. Evaluation Metirc (For Application)
 
 ## Concerns
 Concept Drift: P(X), P(Y) or P(Y|X) that changes over time
@@ -83,7 +99,14 @@ Methods to handle it:
 
 
 
-# Data & Data Cleaning <a name="data"></a>
+
+
+
+
+
+
+
+# Data & Sampling <a name="data"></a>
 ## Think about:
 - Where to get data
 - How to get data
@@ -95,6 +118,32 @@ Methods to handle it:
 - Production Logging / Sampling
 - Web Scraping / API
 - Survey / Panel
+
+## Define the Instance of the Data
+- What should be sampled?
+    - Both postitives and negatitives are drawn from the same population or process
+    - Only observe positives and find appropriate negatitives
+
+- The granularity and range of the instance
+    - Time
+    - Geo
+    - Product Level
+
+- Are intances independent of each other?
+    - Geo-Spatial data
+    - Time series data
+    - Pairwise instances(social networks, search)
+
+## Define the Target Variable: Based on Application and Be Creative
+
+## Sampling
+- Down-Sampling
+    - Reduce comupational burden of training
+    - Require Less Data: Less complex alogrithms & models with **information rich features** [Check Learning Curves to see the ]
+    - Measure empirically the effect of down-sampling (samling size): Learning Curves with X-axis Sample Size.
+- Up-Sampling / Down-Sampling: Rebalance classes
+    - When do model evaluation, should still based on the real base rate
+![](images/down_sample.png)
 
 ## Selction Bias
 ### Implications:
@@ -117,7 +166,15 @@ P(Sampled) = P(Sampled | Y = y) or P(Y = y) = P(Y = y | Sampled)
 - Expect it
 
 
-# Exploratory Data Analysis & Feature Engineering <a name="EDA"></a>
+
+
+
+
+
+
+
+
+# Data Cleaning & Exploratory Data Analysis <a name="EDA"></a>
 ## Goals to do EDA
 - Summarize main characteristics of the data [Univariate]
 - Gain better understanding of the data set [Univariate]
@@ -142,7 +199,7 @@ P(Sampled) = P(Sampled | Y = y) or P(Y = y) = P(Y = y | Sampled)
     - Check with data collection source
     - Delete: Random & Rare
     - Fill Constants: Mean, Median, Dummy Variables
-    - Exploit Mulit-Collinearity: Estimate E[missing|X]
+    - Exploit Mulit-Collinearity: Estimate E[missing given X]
 
 2. Data Formating 
     - Correct data types
@@ -160,10 +217,7 @@ P(Sampled) = P(Sampled | Y = y) or P(Y = y) = P(Y = y | Sampled)
 5. Skewed Distribution (for Linear Regression)
     - Standardize: Log()
 
-6. Data Binning
-    - Group a set of numerical values into a set of "Bins"
-
-7. Turning categorical variables into quantitative variables 
+6. Turning categorical variables into quantitative variables 
     - One-hot encoding 
 
 ## Bivariate
@@ -179,7 +233,6 @@ P(Sampled) = P(Sampled | Y = y) or P(Y = y) = P(Y = y | Sampled)
 
 2. Mutual Information
 ![](images/mutual_info.png)
-
     - **Pros**:
         - Can capture non-linear dependencies better
         - Works naturally with categorical data
@@ -187,7 +240,7 @@ P(Sampled) = P(Sampled | Y = y) or P(Y = y) = P(Y = y | Sampled)
     - **Cons**：
         - Can not express negativedependencies
 
-3. Numerical variable group by Categorical variable
+3. Numerical variable group by **Categorical variable**
     - Analysis of Variance (ANOVA):
         - ANOVA: finding correlation between different groups of categorical values
         - F-test: variation between sample group means divided by variation within sample group
@@ -206,6 +259,47 @@ Applications:
 - Clustering in High Dimensions
 
 
+
+
+
+
+
+
+
+
+
+# Feature Engineering <a name="feature"></a>
+Note: Deep Learning could do "implicit feature engineering, while not all problems will be a Deep Learning problem. Hence we need "explicit feature engineering"
+
+1. Data Binning
+    - Group a set of numerical / categorical values into a set of "Bins", based on pre-defined values.
+    - Could use Clustering ahead to help determine the groups and bins boundaries.
+
+2. Non-Linear Transformations (Ploynomial Expanion)
+    - Higher Degree
+    - Interaction Terms
+        - The complexity is high, making it infeasible to build and test them all: 
+            - A good technique is to run on a Decision Tree ans make interations from the fisrt few split variables.
+            - Another method is to use feature importance and make interactions from the more important ones.
+
+## Put them into Applications
+1. Noisy and Less Info:
+    - Non-Linear Transformation
+        - Low Degree: Underfitting
+        - Higher Degree: Overfitting
+    - Bins
+        - More Bins: hard to borrow information from neighbor bins (using avg Y instead)
+2. Info Rich Environment
+    - Non-Linear Transformation
+        - Higher Degree less likely to be overfit.
+    - Bins:
+        - More bins perform best, because it can approximate any arbitrary curve, but still likely to be overfitting.
+
+
+## Note: some algorithms could do this for you:
+- SVMs with Kernel: the use of kernel could map the data into an infinite space, no explicit feature engineering needed.
+- Trees: Tree based alogrithms can fit non-linear curves and interactions naturally by partitioning on X and estimating expectations separately for each partition (similiar to binning)
+
 ## Extract Extra Features
 - Datetime
     - Weekday, Weekend
@@ -214,6 +308,17 @@ Applications:
 - Numerical Variable to Categorical
     - Binning
     - Clustering
+
+## Leakage
+- Target Variable Leakage: Having features that are caused by the outcome of the target variable
+- Training/Testing Leakage: 
+    - Having records in the training set also appear in the test set.
+    - [Time Series Related ]Training has features that can not get at the time before testing.
+
+
+
+
+
 
 
 
@@ -283,7 +388,13 @@ Note: The validation loss metric **does not** have to be the same as the trainin
 
 
 # Model Selection <a name = "ModelSelection"></a>
-## Feature Selection in the _Data_ Part
+## Rules:
+- Using the same training and validation data for each hypothesis being tested
+- Given a tie (statistical or exact), choose the simpler model, i.e. first std error rule
+- Use this methodology for all design decisions:
+    - Hyper-Parameter Selection
+    - Feature Selection
+    - Model Selection
 
 ## Hyper-Parameter Selection
 ### Hyper-Parameter Examples
@@ -319,6 +430,7 @@ Note: The validation loss metric **does not** have to be the same as the trainin
     - Note: Random Forest use out-of-bag error rather than error of cross-validation set (RF Based on Bootstraping)
     - Note: Training error is our empirical risk and the test set error is our approximation of expected risk. 
 - Nested Cross Validation
+
     ![](images/nested_cross_validation.png)
     - Apply to: Time Series Data
 Note: How to split?
@@ -331,11 +443,66 @@ Note: How to split?
     - Grid Search
     - Random Search
 
+## Feature Selection
+### Why Perform Feature Selection?
+- Lower expected model variance (less likely to be overfitting)
+- Easier interpretation of models
+- Better scalability, both in training and deployment
+- Lower maintenance costs
+
+### Common Feature Selection Techniques
+1. Naive Subset Selection
+    - Pre-filter features based on **heuristics**
+    - Choose top k based on:
+        - Mutual information, Correlation with Y
+        - Has the most coverage / Support (non-na, non-zero percentage) 
+    - Application: bag-of-words selections (long-tail)
+2. Best Subset Selection
+    - Choose the best subst of k features from p features
+    - High complexity
+3. Stepwise Selection
+    - Incrementally add/subtract features until model performance stabilizes
+    - Greedy: incrementally select the kth feature which improve the performance most
+    - k could also be seen as hyper-parameters
+    ![](images/stepwise_feature_selection.png)
+4. Dimensionality reduction
+    - take rank-k approximations of X using SVD
+5. Regularization
+    - Implicit, based on adding complexity penalties to loss function
 
 ## Alogrithm Selection
+### Types of Alogrithms
+1. Classic & Simplier Methods:
+    - Linear Regression
+    - Decision Tree
+    - Naive Bayes
+    - K-Nearest Neighbors
+2. Black Box but Powerful Methods
+    - Random Forests
+    - SVM with Kernel
+    - Neural Networks
 
-### Random Forest vs. Decision Tree
-### Logistic Regression vs. SVM
+### Methods for Model Selection
+1. First, consider all constraints of the problem, and choose alogrithms under constraints.
+    - Too little data (generally an estimation problem)
+    - Too much data (generally a computation problem)
+    - The assumptions of candidate alogrithms
+    - Easy to interpret the model?
+    - Does scalability matter? (training time, predicting time, model storage)
+2. Try all of them, choose best performer based on evaluation metric
+
+### Be Agile: iterate
+1. Start with a resonable baseline model: the one with little effort but sophisticated enough to capture signals.
+2. Iterate towards better models: measure cost-revenue at every iteration
+    ![](images/agile_iteration.png)
+
+
+
+
+
+
+
+
 
 
 # Linear Regression <a name="LinearRegression"></a>
