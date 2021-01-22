@@ -3,6 +3,7 @@
 - [Data Science Overview](#overview)
 - [Data](#data)
 - [Exploratory Data Analysis & Feature Engineering](#EDA)
+- [Loss Function & Evaluation Metrics](#Evaluation)
 - [Model Selection](#ModelSelection)
 
 # Content 2
@@ -217,18 +218,76 @@ Applications:
     - Clustering
 
 
+
+
+
+# Loss Function & Evaluation Metrics <a name = "Evaluation"></a>
+## Loss Function For Classification
+_Ref._ [Loss_functions_for_classification](https://en.wikipedia.org/wiki/Loss_functions_for_classification)
+![](images/loss.png)
+- 0-1 Loss (not convex)
+- Surrogate Loss (convex)
+    - Logistic Loss / Cross Entropy Loss / Log-Likelihood (LL): Logistic Regression
+    - Hinge Loss: SVM
+    - Exponential Loss: Boosting 
+Note: The validation loss metric **does not** have to be the same as the training loss. Sometimes the loss metric for an application (i.e., AUC for validation) is not easy to directly minimize. Insteat we use other metric in training (i.e., logistic loss instead)
+
+## Loss Function for Regression
+- Mean Squared Error (MSE)
+- Mean Absolute Loss
+
+## Evaluation Metrics
+### Confusion Matrix
+- Accuracy: Most intuitive and well known
+    - Base Rate Dependent
+- Precision: Of all the instances which the model predict as positive, how many are real positive? 
+    - Best used when **False Positives** are relatively expensive, i.e. budget is limited
+    - Base Rate Dependent
+- Recall: Of the totoal real positives, how many did the model predict as positive? 
+    - Best used when **False Negatives** are relatively more expensive, i.e. test tumor
+    - Base Rate Independent
+![](images/confusion_matrix.png)
+
+- F1-Score: Favor both precision and recall. It is the harmonic mean of the two.
+![](images/f1_score.png)
+
+- Lift: How many more positives outcomes you might expect relative to the baseline stratgey (random guess). 
+    - Used with Recall to do economic analysis (help to decide the threshold)
+
+### ROC Curve, AUC, ACLC
+- ROC Curve: the Receiver Operating Characteristic curve.
+    - True Positive Rate: True Positive / Golden Negative
+    - False Negative Rate: False Negative / Golden Positive 
+- AUC: Area Under the ROC Curve
+    - Probability Interpretation: The AUC is the probability the model will score a randomly chosen positive class higher than a randomly chosen negative class.
+    - Invariance to prior class probabilities or class prevalence in the data. Useful for comparing across data sets with different base rates or after down sampling.
+    - Independence of the decision threshold. 
+    - Is nicely bounded [0, 1]
+![](images/auc.png)
+
+- ACLC: Area under the Cumulative Lift Curve
+
+### Expected Value and Cost Curve 
+- Expected Value: Help to choose/change a decision threshold based on cost-benefit analysis
+![](images/expected_value.png) 
+- Cost Curve : Used in unequal cost scenario. The area measures the expected total costs.
+![](images/auc_costs_curve.png) 
+
+### Metrics for Different Applications
+- Ranking (Without Threshold)
+    - AUC, AULC
+- Classification
+    - Accuracy, Precision, Recall, F-Score, Lift
+- Density Estimaion (Numerical)
+    - Regression: MSE, MAE
+    - Classification Related: Surrogate Losses
+
+
+
 # Model Selection <a name = "ModelSelection"></a>
 ## Feature Selection in the _Data_ Part
 
 ## Hyper-Parameter Selection
-### Loss function For Classification
-_Ref._ [Loss_functions_for_classification](https://en.wikipedia.org/wiki/Loss_functions_for_classification)
-![](images/loss.png)
-- 0-1 Loss
-- Logistic Loss / Cross Entropy Loss: Logistic Regression
-- Hinge Loss: SVM
-- Exponential Loss: Boosting 
-
 ### Hyper-Parameter Examples
 - Linear Regression & Logistic Regression
     - L1 / L2: regularization strategy
@@ -250,7 +309,6 @@ _Ref._ [Loss_functions_for_classification](https://en.wikipedia.org/wiki/Loss_fu
     ![](images/model_selection_process.png)
 
     - Note: Training error is our empirical risk and the test set error is our approximation of expected risk.
-    - Note: The validation loss metric **does not** have to be the same as the training loss. Sometimes the loss metric for an application (i.e., AUC for validation) is not easy to directly minimize. Insteat we use other metric in training (i.e., logistic loss instead)
     - Note (for training part): Empirical risk minimization (ERM) is a principle in statistical learning theory which defines a family of learning algorithms and is used to give theoretical bounds on their performance. The core idea is that we cannot know exactly how well an algorithm will work in practice (the true "risk") because we don't know the true distribution of data that the algorithm will work on, but we can instead measure its performance on a known set of training data (the "empirical" risk).
     - Note (for validation part): Rules to Choose Hyper-Parameter in Validation Set:
         - Max / Min (validation loss metric)
