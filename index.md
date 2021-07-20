@@ -516,22 +516,22 @@ Note: How to split?
 1. Linearity: 
     - There is a linear relationship between the covariates and the response. 
     - Linear relationship can be assessed with scatter plots.
-2. (Normality): 
-    - Variables follow a Gaussian Distribution.
+2. Normality: 
+    - For any fixed value of X, Y is normally distributed.
     - Normality can be assessed with histograms. Normality can also be statistically tested, for example with the Kolmogorov-Smirnov test.
     - When the variable is not normally distributed a non-linear transformation like Log-transformation may fix this issue.
 3. The Noise Term
-    - The error term is assumed to be a random variable that has a mean of 0 and normally distributed (i.i.d. Gaussian random variables).
-    - (Residuals are statistically independent, have uniform variance, are normally distributed)
-    - Why
+    - The error term is assumed to be a random variable that has a mean of 0 and normally distributed (i.i.d. Gaussian random variables). (Residuals are statistically independent, have uniform variance, are normally distributed, have no auto-correlation)
+    - Based on this assumption, we can construct confidence intervals and perform hypothesis tests about our parameters.
     ![](images/why_linear_model_error_term_normal_distributed.png)
-    - When the errors are not normally distributed, it is OK if we have enough data.
+    - The normally distributed assumption can be relaxed if we have enougth data.
 4. Homoscedasticity
     - The error term has onstant variance σ2 at every value of X. 
-    - Why
+    - Why we need homoscedasticity? 
     ![](images/why_linear_model_homoscedastic.png)
-    - There are tests and plots to determine homescedasticity. Residual plots, Levene's test, Barlett's test, and Goldfeld-Quandt Test.
-    - In the heteroscedastic, we can use Weighted Least Squares (WLS) to transform the problem into the homoscedastic case.
+    - There are tests and plots to determine homescedasticity. Residual plots, White’s test and Breusch-Pagan., Levene's test, Barlett's test, and Goldfeld-Quandt Test.
+    - In it is heteroscedastic, we can use Weighted Least Squares (WLS) to transform the problem into the homoscedastic case.
+    - If we cannot perform weighted least squares or a variable transformation and must use ordinary least squares, the confidence intervals and hypothesis tests are no longer valid. There are techniques such as Huber-White that attempt to address these issues.
 5. Non-Collinearity (Xs is full column rank in Linear Algerba): 
     - Multicolinearity occurs when the independent variables are correlated with each other.
     - Why : Multicolinearity means Xs has no full column rank, and by rank-nullity theorem, dimension of ker(Xs) bigger than 0. Hence, it will have more than one soulution.
